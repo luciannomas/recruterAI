@@ -15,15 +15,17 @@ import {
   Sparkles,
   LogOut,
   Menu,
-  X
+  X,
+  Bot
 } from 'lucide-react';
 import { useState } from 'react';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, badge: null },
   { name: 'Vacantes', href: '/dashboard/vacancies', icon: Briefcase, badge: null },
-  { name: 'Candidatos', href: '/dashboard/candidates', icon: Users, badge: 'Nuevo' },
+  { name: 'Candidatos', href: '/dashboard/candidates', icon: Users, badge: null },
   { name: 'Kanban', href: '/dashboard/kanban', icon: Kanban, badge: null },
+  { name: 'Agentes IA', href: '/dashboard/ai-agents', icon: Bot, badge: 'Nuevo' },
   { name: 'Notificaciones', href: '/dashboard/notifications', icon: Bell, badge: null },
   { name: 'Configuración', href: '/dashboard/settings', icon: Settings, badge: null },
 ];

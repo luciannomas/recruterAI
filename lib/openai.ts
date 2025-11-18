@@ -49,7 +49,8 @@ export async function optimizeJobDescription(description: string, role: string) 
 export async function analyzeCandidateCV(
   cvText: string,
   jobDescription: string,
-  requiredSkills: string[]
+  requiredSkills: string[],
+  aiAgent?: any
 ) {
   if (!checkOpenAIAvailable('analyzeCandidateCV')) {
     return {
@@ -62,12 +63,8 @@ export async function analyzeCandidateCV(
   }
 
   try {
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [
-        {
-          role: "system",
-          content: `Eres un experto en reclutamiento. Analiza el CV del candidato comparándolo con la descripción del puesto y proporciona:
+    // Usar el system prompt del agente si está disponible, sino usar el genérico
+    const systemPrompt = aiAgent?.systemPrompt || `Eres un experto en reclutamiento. Analiza el CV del candidato comparándolo con la descripción del puesto y proporciona:
           1. Un puntaje del 1-100 basado en qué tan bien coincide el candidato con los requisitos
           2. Clasificación: "ideal" (80-100), "potential" (50-79), o "no-fit" (0-49)
           3. Resumen breve
@@ -81,7 +78,14 @@ export async function analyzeCandidateCV(
             "summary": "El candidato tiene...",
             "strengths": ["Fortaleza 1", "Fortaleza 2"],
             "concerns": ["Preocupación 1"]
-          }`
+          }`;
+
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4",
+      messages: [
+        {
+          role: "system",
+          content: systemPrompt
         },
         {
           role: "user",

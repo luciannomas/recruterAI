@@ -21,7 +21,8 @@ import {
   Calendar,
   CheckCircle2,
   AlertCircle,
-  Activity
+  Activity,
+  Bot
 } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -292,6 +293,23 @@ export default function DashboardPage() {
                 </div>
               </div>
             </Link>
+
+            <Link href="/dashboard/ai-agents">
+              <div className="group p-6 border-2 rounded-xl hover:border-yellow-300 hover:bg-yellow-50 transition-all cursor-pointer">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Bot className="h-6 w-6 text-yellow-600" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-lg mb-1">Agentes de IA</h3>
+                    <p className="text-sm text-gray-600">
+                      Configura evaluaciones
+                    </p>
+                  </div>
+                  <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-yellow-600 group-hover:translate-x-1 transition-all" />
+                </div>
+              </div>
+            </Link>
           </CardContent>
         </Card>
 
@@ -317,7 +335,11 @@ export default function DashboardPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-sm truncate">{candidate.fullName}</p>
-                    <p className="text-xs text-gray-500 truncate">Vacante ID: {candidate.vacancyId}</p>
+                    <p className="text-xs text-gray-500 truncate">
+                      {typeof candidate.vacancyId === 'object' && candidate.vacancyId?.title 
+                        ? candidate.vacancyId.title 
+                        : `Vacante ID: ${candidate.vacancyId}`}
+                    </p>
                   </div>
                   <Badge className={`${
                     candidate.displayScore >= 90 ? 'bg-green-100 text-green-700' :

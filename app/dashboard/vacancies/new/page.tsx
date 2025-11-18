@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,13 +9,14 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Sparkles, Loader2, Plus, X } from 'lucide-react';
+import { ArrowLeft, Sparkles, Loader2, Plus, X, Bot } from 'lucide-react';
 import Link from 'next/link';
 
 export default function NewVacancyPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [optimizing, setOptimizing] = useState(false);
+  const [agents, setAgents] = useState<any[]>([]);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -30,11 +31,27 @@ export default function NewVacancyPage() {
     experienceYears: '',
     educationLevel: '',
     employmentType: 'full-time',
-    status: 'draft'
+    status: 'draft',
+    aiAgentId: ''
   });
   
   const [newSkill, setNewSkill] = useState('');
   const [newDesiredSkill, setNewDesiredSkill] = useState('');
+
+  useEffect(() => {
+    fetchAgents();
+  }, []);
+
+  const fetchAgents = async () => {
+    try {
+      const response = await axios.get('/api/ai-agents');
+      if (response.data.success) {
+        setAgents(response.data.data);
+      }
+    } catch (error) {
+      console.error('Error cargando agentes:', error);
+    }
+  };
 
   const handleOptimize = async () => {
     if (!formData.title || !formData.description) {
@@ -118,7 +135,8 @@ export default function NewVacancyPage() {
         experienceYears: parseInt(formData.experienceYears) || 0,
         educationLevel: formData.educationLevel,
         employmentType: formData.employmentType,
-        status: publish ? 'published' : 'draft'
+        status: publish ? 'published' : 'draft',
+        aiAgentId: formData.aiAgentId || undefined
       };
 
       const response = await axios.post('/api/vacancies', dataToSend);
@@ -322,6 +340,65 @@ export default function NewVacancyPage() {
                   <option value="EUR">EUR (Euros)</option>
                 </select>
               </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Agente de IA */}
+        <Card className="border-2 border-purple-100 bg-gradient-to-br from-purple-50/50 to-white">
+          <CardHeader>
+            <div className="flex items-center gap-2">
+              <Bot className="h-5 w-5 text-purple-600" />
+              <CardTitle>Agente de Evaluación IA</CardTitle>
+            </div>
+            <CardDescription>
+              Selecciona cómo la IA evaluará a los candidatos para este puesto
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="aiAgent">Agente de IA</Label>
+              <select
+                id="aiAgent"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                value={formData.aiAgentId}
+                onChange={(e) => setFormData({ ...formData, aiAgentId: e.target.value })}
+              >
+                <option value="">Sin agente específico (evaluación genérica)</option>
+                <optgroup label="🌟 Plantillas del Sistema">
+                  {agents.filter(a => a.isTemplate).map((agent) => (
+                    <option key={agent.name} value={agent._id || agent.name}>
+                      {agent.name} - {agent.category}
+                    </option>
+                  ))}
+                </optgroup>
+                {agents.filter(a => !a.isTemplate).length > 0 && (
+                  <optgroup label="⚙️ Mis Agentes Personalizados">
+                    {agents.filter(a => !a.isTemplate).map((agent) => (
+                      <option key={agent._id} value={agent._id}>
+                        {agent.name}
+                      </option>
+                    ))}
+                  </optgroup>
+                )}
+              </select>
+              {formData.aiAgentId && (
+                <div className="mt-3 p-3 bg-purple-50 border border-purple-200 rounded-lg">
+                  <p className="text-sm text-purple-900 flex items-center gap-2">
+                    <Sparkles className="h-4 w-4" />
+                    <span className="font-semibold">Evaluación Especializada:</span>
+                  </p>
+                  <p className="text-sm text-purple-700 mt-1">
+                    Los candidatos serán evaluados con criterios específicos para este tipo de puesto
+                  </p>
+                </div>
+              )}
+              <p className="text-xs text-muted-foreground mt-2">
+                El agente define cómo se ponderan experiencia, skills, educación y soft skills. 
+                <Link href="/dashboard/ai-agents" className="text-purple-600 hover:underline ml-1">
+                  Ver agentes disponibles →
+                </Link>
+              </p>
             </div>
           </CardContent>
         </Card>

@@ -12,8 +12,8 @@ export const mockVacancies = [
     requiredSkills: ['React', 'Node.js', 'TypeScript', 'MongoDB', 'Next.js'],
     experienceYears: 5,
     status: 'published',
-    createdAt: new Date('2024-01-15'),
-    updatedAt: new Date('2024-01-15'),
+    createdAt: '2024-01-15T00:00:00.000Z',
+    updatedAt: '2024-01-15T00:00:00.000Z',
   },
   {
     _id: '2',
@@ -27,8 +27,8 @@ export const mockVacancies = [
     requiredSkills: ['Figma', 'Adobe XD', 'UI Design', 'Prototyping'],
     experienceYears: 3,
     status: 'published',
-    createdAt: new Date('2024-01-16'),
-    updatedAt: new Date('2024-01-16'),
+    createdAt: '2024-01-16T00:00:00.000Z',
+    updatedAt: '2024-01-16T00:00:00.000Z',
   },
   {
     _id: '3',
@@ -42,8 +42,8 @@ export const mockVacancies = [
     requiredSkills: ['SEO', 'SEM', 'Google Analytics', 'Social Media', 'Content Marketing'],
     experienceYears: 4,
     status: 'published',
-    createdAt: new Date('2024-01-17'),
-    updatedAt: new Date('2024-01-17'),
+    createdAt: '2024-01-17T00:00:00.000Z',
+    updatedAt: '2024-01-17T00:00:00.000Z',
   },
   {
     _id: '4',
@@ -57,8 +57,8 @@ export const mockVacancies = [
     requiredSkills: ['SQL', 'Python', 'Tableau', 'Power BI', 'Excel'],
     experienceYears: 2,
     status: 'published',
-    createdAt: new Date('2024-01-18'),
-    updatedAt: new Date('2024-01-18'),
+    createdAt: '2024-01-18T00:00:00.000Z',
+    updatedAt: '2024-01-18T00:00:00.000Z',
   },
   {
     _id: '5',
@@ -72,8 +72,8 @@ export const mockVacancies = [
     requiredSkills: ['Comunicación', 'Excel', 'CRM'],
     experienceYears: 0,
     status: 'published',
-    createdAt: new Date('2024-01-19'),
-    updatedAt: new Date('2024-01-19'),
+    createdAt: '2024-01-19T00:00:00.000Z',
+    updatedAt: '2024-01-19T00:00:00.000Z',
   },
   {
     _id: '6',
@@ -87,8 +87,8 @@ export const mockVacancies = [
     requiredSkills: ['AWS', 'Docker', 'Kubernetes', 'CI/CD', 'Terraform'],
     experienceYears: 4,
     status: 'published',
-    createdAt: new Date('2024-01-20'),
-    updatedAt: new Date('2024-01-20'),
+    createdAt: '2024-01-20T00:00:00.000Z',
+    updatedAt: '2024-01-20T00:00:00.000Z',
   },
   {
     _id: '7',
@@ -102,8 +102,8 @@ export const mockVacancies = [
     requiredSkills: ['Product Strategy', 'Agile', 'Scrum', 'User Research', 'Roadmapping'],
     experienceYears: 5,
     status: 'published',
-    createdAt: new Date('2024-01-21'),
-    updatedAt: new Date('2024-01-21'),
+    createdAt: '2024-01-21T00:00:00.000Z',
+    updatedAt: '2024-01-21T00:00:00.000Z',
   },
   {
     _id: '8',
@@ -117,8 +117,8 @@ export const mockVacancies = [
     requiredSkills: ['Contabilidad', 'SAT', 'Excel', 'Auditoría', 'Finanzas'],
     experienceYears: 5,
     status: 'published',
-    createdAt: new Date('2024-01-22'),
-    updatedAt: new Date('2024-01-22'),
+    createdAt: '2024-01-22T00:00:00.000Z',
+    updatedAt: '2024-01-22T00:00:00.000Z',
   },
   {
     _id: '9',
@@ -132,8 +132,8 @@ export const mockVacancies = [
     requiredSkills: ['Reclutamiento', 'Nómina', 'Relaciones Laborales', 'Capacitación'],
     experienceYears: 6,
     status: 'published',
-    createdAt: new Date('2024-01-23'),
-    updatedAt: new Date('2024-01-23'),
+    createdAt: '2024-01-23',
+    updatedAt: '2024-01-23',
   },
   {
     _id: '10',
@@ -147,8 +147,8 @@ export const mockVacancies = [
     requiredSkills: ['Selenium', 'Jest', 'Cypress', 'API Testing', 'Automation'],
     experienceYears: 3,
     status: 'published',
-    createdAt: new Date('2024-01-24'),
-    updatedAt: new Date('2024-01-24'),
+    createdAt: '2024-01-24',
+    updatedAt: '2024-01-24',
   },
 ];
 
@@ -168,7 +168,7 @@ export const mockCandidates = [
       strengths: ['React experto', 'Node.js avanzado', 'TypeScript', 'Arquitectura de software'],
       concerns: ['Ninguna preocupación significativa'],
     },
-    appliedAt: new Date('2024-01-25'),
+    appliedAt: '2024-01-25',
   },
   {
     _id: 'c2',
@@ -185,7 +185,7 @@ export const mockCandidates = [
       strengths: ['React', 'Node.js', 'MongoDB', 'Buena comunicación'],
       concerns: ['Menos experiencia con Next.js'],
     },
-    appliedAt: new Date('2024-01-26'),
+    appliedAt: '2024-01-26',
   },
   {
     _id: 'c3',
@@ -202,7 +202,7 @@ export const mockCandidates = [
       strengths: ['Figma experto', 'UI Design', 'Prototyping', 'User Research'],
       concerns: ['Experiencia limitada en Adobe XD'],
     },
-    appliedAt: new Date('2024-01-27'),
+    appliedAt: '2024-01-27',
   },
   {
     _id: 'c4',
@@ -219,7 +219,7 @@ export const mockCandidates = [
       strengths: ['Figma', 'Creatividad', 'Pasión por el diseño'],
       concerns: ['Solo 2 años de experiencia', 'Portafolio limitado'],
     },
-    appliedAt: new Date('2024-01-28'),
+    appliedAt: '2024-01-28',
   },
   {
     _id: 'c5',
@@ -236,7 +236,7 @@ export const mockCandidates = [
       strengths: ['SEO', 'SEM', 'Google Analytics', 'Liderazgo', 'ROI comprobado'],
       concerns: ['Ninguna'],
     },
-    appliedAt: new Date('2024-01-29'),
+    appliedAt: '2024-01-29',
   },
   {
     _id: 'c6',
@@ -253,7 +253,7 @@ export const mockCandidates = [
       strengths: ['SQL', 'Python', 'Tableau', 'Análisis estadístico'],
       concerns: ['Menos experiencia con Power BI'],
     },
-    appliedAt: new Date('2024-01-30'),
+    appliedAt: '2024-01-30',
   },
   {
     _id: 'c7',
@@ -270,7 +270,7 @@ export const mockCandidates = [
       strengths: ['Comunicación', 'Entusiasmo', 'Disponibilidad'],
       concerns: ['Sin experiencia laboral previa'],
     },
-    appliedAt: new Date('2024-01-31'),
+    appliedAt: '2024-01-31',
   },
   {
     _id: 'c8',
@@ -287,7 +287,7 @@ export const mockCandidates = [
       strengths: ['AWS', 'Docker', 'Kubernetes', 'Terraform', 'CI/CD'],
       concerns: ['Ninguna significativa'],
     },
-    appliedAt: new Date('2024-02-01'),
+    appliedAt: '2024-02-01',
   },
   {
     _id: 'c9',
@@ -304,7 +304,7 @@ export const mockCandidates = [
       strengths: ['Product Strategy', 'Agile', 'Scrum', 'User Research'],
       concerns: ['Experiencia en industria diferente'],
     },
-    appliedAt: new Date('2024-02-02'),
+    appliedAt: '2024-02-02',
   },
   {
     _id: 'c10',
@@ -321,7 +321,7 @@ export const mockCandidates = [
       strengths: ['Contabilidad básica', 'Excel'],
       concerns: ['Solo 3 años de experiencia', 'Sin experiencia en auditoría'],
     },
-    appliedAt: new Date('2024-02-03'),
+    appliedAt: '2024-02-03',
   },
   {
     _id: 'c11',
@@ -338,14 +338,102 @@ export const mockCandidates = [
       strengths: ['Selenium', 'Jest', 'API Testing', 'Metodología'],
       concerns: ['Menos experiencia con Cypress'],
     },
-    appliedAt: new Date('2024-02-04'),
+    appliedAt: '2024-02-04',
+  },
+];
+
+// Mock AI Agents (plantillas del sistema)
+export const mockAIAgents = [
+  {
+    _id: 'agent-1',
+    name: "Desarrollador Full Stack Senior",
+    category: "desarrollo",
+    isTemplate: true,
+    description: "Agente especializado en evaluar perfiles de desarrolladores full stack senior, con énfasis en experiencia práctica y habilidades técnicas avanzadas.",
+    criteria: {
+      experience: { weight: 30, minYears: 5, importance: "high" },
+      technicalSkills: { weight: 35, required: ["React", "Node.js", "TypeScript", "MongoDB", "Git"], desired: ["Next.js", "GraphQL", "AWS"] },
+      education: { weight: 15, minLevel: "bachelor", required: false },
+      softSkills: { weight: 10, keySkills: ["leadership", "teamwork", "communication"] },
+      progression: { weight: 10 },
+    },
+    thresholds: { ideal: 80, potential: 65, review: 50 },
+    systemPrompt: "Eres un Agente de Reclutamiento Técnico Especializado con 15 años de experiencia en desarrollo de software.",
+    active: true,
+    usageCount: 5,
+    createdAt: '2024-01-10',
+    updatedAt: '2024-01-10',
+  },
+  {
+    _id: 'agent-2',
+    name: "Desarrollador Full Stack Junior",
+    category: "desarrollo",
+    isTemplate: true,
+    description: "Agente para evaluar perfiles junior, priorizando potencial, fundamentos técnicos y proyectos personales.",
+    criteria: {
+      experience: { weight: 15, minYears: 0, importance: "low" },
+      technicalSkills: { weight: 40, required: ["JavaScript", "HTML", "CSS", "Git"], desired: ["React", "Node.js", "SQL"] },
+      education: { weight: 25, minLevel: "associate", required: true },
+      softSkills: { weight: 10, keySkills: ["learning-agility", "problem-solving", "teamwork"] },
+      progression: { weight: 10 },
+    },
+    thresholds: { ideal: 75, potential: 60, review: 45 },
+    systemPrompt: "Eres un Agente de Reclutamiento Técnico Especializado en perfiles junior.",
+    active: true,
+    usageCount: 3,
+    createdAt: '2024-01-11',
+    updatedAt: '2024-01-11',
+  },
+  {
+    _id: 'agent-3',
+    name: "Gerente de Proyecto Senior",
+    category: "gerencia",
+    isTemplate: true,
+    description: "Agente para evaluar gerentes de proyecto con experiencia en metodologías ágiles.",
+    criteria: {
+      experience: { weight: 35, minYears: 7, importance: "high" },
+      technicalSkills: { weight: 20, required: ["Scrum", "Kanban", "Jira"], desired: ["PMP", "SAFe"] },
+      education: { weight: 15, minLevel: "bachelor", required: true },
+      softSkills: { weight: 20, keySkills: ["leadership", "communication", "problem-solving"] },
+      progression: { weight: 10 },
+    },
+    thresholds: { ideal: 85, potential: 70, review: 55 },
+    systemPrompt: "Eres un Agente de Reclutamiento Especializado en Gerencia de Proyectos Senior.",
+    active: true,
+    usageCount: 2,
+    createdAt: '2024-01-12',
+    updatedAt: '2024-01-12',
+  },
+  {
+    _id: 'agent-4',
+    name: "Diseñador UX/UI",
+    category: "diseño",
+    isTemplate: true,
+    description: "Agente para evaluar diseñadores UX/UI, enfocándose en portafolio y herramientas.",
+    criteria: {
+      experience: { weight: 25, minYears: 3, importance: "medium" },
+      technicalSkills: { weight: 35, required: ["Figma", "Sketch", "User Research"], desired: ["HTML", "CSS"] },
+      education: { weight: 15, minLevel: "bachelor", required: false },
+      softSkills: { weight: 15, keySkills: ["empathy", "creativity", "communication"] },
+      progression: { weight: 10 },
+    },
+    thresholds: { ideal: 80, potential: 65, review: 50 },
+    systemPrompt: "Eres un Agente de Reclutamiento Especializado en Diseñadores UX/UI.",
+    active: true,
+    usageCount: 4,
+    createdAt: '2024-01-13',
+    updatedAt: '2024-01-13',
   },
 ];
 
 // Flag para indicar si estamos usando mock data
-export let usingMockData = false;
+let _usingMockData = false;
 
 export function setMockDataMode(enabled: boolean) {
-  usingMockData = enabled;
+  _usingMockData = enabled;
+}
+
+export function usingMockData() {
+  return _usingMockData;
 }
 

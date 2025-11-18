@@ -11,8 +11,8 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const status = searchParams.get('status');
     
-    // Usar datos mock si MongoDB no está disponible
-    if (usingMockData || !isMongoDBAvailable()) {
+      // Usar datos mock si MongoDB no está disponible
+      if (usingMockData() || !isMongoDBAvailable()) {
       let filteredVacancies = mockVacancies;
       if (status) {
         filteredVacancies = mockVacancies.filter(v => v.status === status);
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
     }
     
     // En modo mock, simular creación exitosa
-    if (usingMockData || !isMongoDBAvailable()) {
+    if (usingMockData() || !isMongoDBAvailable()) {
       const newVacancy = {
         _id: `mock-${Date.now()}`,
         ...body,

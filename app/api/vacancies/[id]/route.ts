@@ -12,7 +12,7 @@ export async function GET(
     await connectDB();
     
     // Usar datos mock si MongoDB no está disponible
-    if (usingMockData || !isMongoDBAvailable()) {
+    if (usingMockData() || !isMongoDBAvailable()) {
       const vacancy = mockVacancies.find(v => v._id === params.id);
       
       if (!vacancy) {
@@ -73,7 +73,7 @@ export async function PUT(
     }
     
     // En modo mock, simular actualización
-    if (usingMockData || !isMongoDBAvailable()) {
+    if (usingMockData() || !isMongoDBAvailable()) {
       const index = mockVacancies.findIndex(v => v._id === params.id);
       
       if (index === -1) {
@@ -117,7 +117,7 @@ export async function DELETE(
     await connectDB();
     
     // En modo mock, simular eliminación
-    if (usingMockData || !isMongoDBAvailable()) {
+    if (usingMockData() || !isMongoDBAvailable()) {
       const index = mockVacancies.findIndex(v => v._id === params.id);
       
       if (index === -1) {

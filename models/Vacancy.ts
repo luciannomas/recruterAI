@@ -17,6 +17,7 @@ export interface IVacancy extends Document {
   educationLevel: string;
   employmentType: 'full-time' | 'part-time' | 'contract' | 'internship';
   status: 'draft' | 'published' | 'closed';
+  aiAgentId?: string;
   publishedAt?: Date;
   closedAt?: Date;
   createdAt: Date;
@@ -48,6 +49,7 @@ const VacancySchema = new Schema<IVacancy>({
     enum: ['draft', 'published', 'closed'],
     default: 'draft'
   },
+  aiAgentId: { type: String },
   publishedAt: { type: Date },
   closedAt: { type: Date }
 }, {

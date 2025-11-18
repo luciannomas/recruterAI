@@ -2,12 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import connectDB, { isMongoDBAvailable } from '@/lib/mongodb';
 import Candidate from '@/models/Candidate';
 import Vacancy from '@/models/Vacancy';
+import AIAgent from '@/models/AIAgent';
 import { analyzeCandidateCV } from '@/lib/openai';
 import { sendApplicationConfirmation } from '@/lib/email';
 import { sendApplicationConfirmationWhatsApp } from '@/lib/whatsapp';
 import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 import { mockVacancies, mockCandidates, usingMockData } from '@/lib/mock-data';
+import { aiAgentTemplates } from '@/lib/ai-agent-templates';
 
 export async function POST(request: NextRequest) {
   try {
@@ -29,7 +31,7 @@ export async function POST(request: NextRequest) {
     
     // Obtener información de la vacante
     let vacancy;
-    if (usingMockData || !isMongoDBAvailable()) {
+    if (usingMockData() || !isMongoDBAvailable()) {
       vacancy = mockVacancies.find(v => v._id === vacancyId);
     } else {
       vacancy = await Vacancy.findById(vacancyId);
@@ -69,7 +71,23 @@ export async function POST(request: NextRequest) {
     // Extraer texto del CV (simplificado - en producción usar pdf-parse)
     const cvText = `CV de ${fullName}`;
     
-    // Analizar CV con IA
+      // Obtener el agente de IA asociado a la vacante
+      let aiAgent = null;
+      const vacancyWithAgent = vacancy as any;
+      if (vacancyWithAgent.aiAgentId) {
+        if (usingMockData() || !isMongoDBAvailable()) {
+          // Buscar en plantillas mock
+          aiAgent = aiAgentTemplates.find(a => a.name === vacancyWithAgent.aiAgentId);
+        } else {
+          try {
+            aiAgent = await AIAgent.findById(vacancyWithAgent.aiAgentId);
+          } catch (error) {
+            console.log('⚠️  No se pudo cargar el agente de IA');
+          }
+        }
+      }
+    
+    // Analizar CV con IA usando el agente específico
     let aiAnalysis = {
       score: 50,
       classification: 'potential' as 'ideal' | 'potential' | 'no-fit',
@@ -82,34 +100,35 @@ export async function POST(request: NextRequest) {
       aiAnalysis = await analyzeCandidateCV(
         cvText,
         vacancy.optimizedDescription || vacancy.description,
-        vacancy.requiredSkills || []
+        vacancy.requiredSkills || [],
+        aiAgent
       );
     } catch (error) {
       console.error('⚠️  Error analizando CV (requiere OPENAI_API_KEY):', error);
     }
     
-    // Crear candidato
-    let candidate;
-    if (usingMockData || !isMongoDBAvailable()) {
-      // En modo mock, simular creación
-      candidate = {
-        _id: `candidate-${Date.now()}`,
-        vacancyId,
-        fullName,
-        email,
-        phone,
-        cvPath: cvUrl,
-        status: 'applied',
-        aiAnalysis: {
-          score: aiAnalysis.score,
-          classification: aiAnalysis.classification,
-          summary: aiAnalysis.summary,
-          strengths: aiAnalysis.strengths,
-          concerns: aiAnalysis.concerns
-        },
-        appliedAt: new Date()
-      };
-      mockCandidates.push(candidate);
+      // Crear candidato
+      let candidate;
+      if (usingMockData() || !isMongoDBAvailable()) {
+        // En modo mock, simular creación
+        candidate = {
+          _id: `candidate-${Date.now()}`,
+          vacancyId,
+          fullName,
+          email,
+          phone,
+          cvPath: cvUrl,
+          status: 'applied',
+          aiAnalysis: {
+            score: aiAnalysis.score,
+            classification: aiAnalysis.classification,
+            summary: aiAnalysis.summary,
+            strengths: aiAnalysis.strengths,
+            concerns: aiAnalysis.concerns
+          },
+          appliedAt: new Date().toISOString()
+        };
+        mockCandidates.push(candidate);
     } else {
       candidate = await Candidate.create({
         vacancyId,

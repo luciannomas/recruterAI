@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status');
     
     // Usar datos mock si MongoDB no está disponible
-    if (usingMockData || !isMongoDBAvailable()) {
+    if (usingMockData() || !isMongoDBAvailable()) {
       let filteredCandidates = mockCandidates;
       
       if (vacancyId) {
