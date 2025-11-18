@@ -18,7 +18,13 @@ export default function KanbanPage() {
     try {
       const response = await axios.get('/api/candidates');
       if (response.data.success) {
-        setCandidates(response.data.data);
+        // Normalizar datos para ambos formatos
+        const normalizedCandidates = response.data.data.map((c: any) => ({
+          ...c,
+          aiScore: c.aiAnalysis?.score || c.aiScore || 0,
+          aiClassification: c.aiAnalysis?.classification || c.aiClassification || 'potential',
+        }));
+        setCandidates(normalizedCandidates);
       }
     } catch (error) {
       console.error('Error fetching candidates:', error);

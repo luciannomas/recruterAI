@@ -35,8 +35,17 @@ export default function CandidatesPage() {
     try {
       const response = await axios.get('/api/candidates');
       if (response.data.success) {
-        setcandidates(response.data.data);
-        setFilteredCandidates(response.data.data);
+        // Normalizar datos para ser compatibles con ambos formatos
+        const normalizedCandidates = response.data.data.map((c: any) => ({
+          ...c,
+          aiScore: c.aiAnalysis?.score || c.aiScore || 0,
+          aiClassification: c.aiAnalysis?.classification || c.aiClassification || 'potential',
+          aiJustification: c.aiAnalysis?.summary || c.aiJustification || '',
+          cvUrl: c.cvPath || c.cvUrl || '#'
+        }));
+        
+        setcandidates(normalizedCandidates);
+        setFilteredCandidates(normalizedCandidates);
       }
     } catch (error) {
       console.error('Error fetching candidates:', error);

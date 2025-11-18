@@ -52,22 +52,40 @@ export default function DashboardPage() {
         const vacancies = vacanciesRes.data.data;
         const candidates = candidatesRes.data.data;
 
+        // Calcular stats considerando ambos formatos (MongoDB y Mock)
+        const idealCount = candidates.filter((c: any) => 
+          c.aiClassification === 'ideal' || 
+          c.aiAnalysis?.classification === 'ideal' ||
+          (c.aiAnalysis?.score || c.aiScore || 0) >= 80
+        ).length;
+        
+        const potentialCount = candidates.filter((c: any) => 
+          c.aiClassification === 'potential' || 
+          c.aiClassification === 'potencial' ||
+          c.aiAnalysis?.classification === 'potential' ||
+          ((c.aiAnalysis?.score || c.aiScore || 0) >= 50 && (c.aiAnalysis?.score || c.aiScore || 0) < 80)
+        ).length;
+
         setStats({
           totalVacancies: vacancies.length,
           activeVacancies: vacancies.filter((v: any) => v.status === 'published').length,
           totalCandidates: candidates.length,
-          idealCandidates: candidates.filter((c: any) => c.aiClassification === 'ideal').length,
-          potentialCandidates: candidates.filter((c: any) => c.aiClassification === 'potencial').length,
+          idealCandidates: idealCount,
+          potentialCandidates: potentialCount,
           inInterview: candidates.filter((c: any) => c.status === 'interview' || c.status === 'evaluation').length,
         });
 
         // Últimas 3 vacantes
         setRecentVacancies(vacancies.slice(0, 3));
         
-        // Top 5 candidatos por score
+        // Top 5 candidatos por score (compatible con ambos formatos)
         setTopCandidates(
           candidates
-            .sort((a: any, b: any) => b.aiScore - a.aiScore)
+            .map((c: any) => ({
+              ...c,
+              displayScore: c.aiAnalysis?.score || c.aiScore || 0
+            }))
+            .sort((a: any, b: any) => b.displayScore - a.displayScore)
             .slice(0, 5)
         );
       }
@@ -299,14 +317,14 @@ export default function DashboardPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-sm truncate">{candidate.fullName}</p>
-                    <p className="text-xs text-gray-500 truncate">{candidate.vacancyId?.title}</p>
+                    <p className="text-xs text-gray-500 truncate">Vacante ID: {candidate.vacancyId}</p>
                   </div>
                   <Badge className={`${
-                    candidate.aiScore >= 90 ? 'bg-green-100 text-green-700' :
-                    candidate.aiScore >= 80 ? 'bg-blue-100 text-blue-700' :
+                    candidate.displayScore >= 90 ? 'bg-green-100 text-green-700' :
+                    candidate.displayScore >= 80 ? 'bg-blue-100 text-blue-700' :
                     'bg-yellow-100 text-yellow-700'
                   }`}>
-                    {candidate.aiScore}
+                    {candidate.displayScore}
                   </Badge>
                 </div>
               ))
