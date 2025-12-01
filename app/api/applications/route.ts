@@ -6,8 +6,7 @@ import AIAgent from '@/models/AIAgent';
 import { analyzeCandidateCV } from '@/lib/openai';
 import { sendApplicationConfirmation } from '@/lib/email';
 import { sendApplicationConfirmationWhatsApp } from '@/lib/whatsapp';
-import { writeFile, mkdir } from 'fs/promises';
-import path from 'path';
+import { put } from '@vercel/blob';
 import { mockVacancies, mockCandidates, usingMockData } from '@/lib/mock-data';
 import { aiAgentTemplates } from '@/lib/ai-agent-templates';
 import pdfParse from 'pdf-parse';
@@ -52,22 +51,38 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Crear directorio de uploads si no existe
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'cvs');
-    try {
-      await mkdir(uploadDir, { recursive: true });
-    } catch (err) {
-      // Directory already exists
-    }
-    
-    // Guardar CV
+    // Guardar CV en Vercel Blob (almacenamiento en la nube)
     const bytes = await cvFile.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const fileName = `${Date.now()}-${cvFile.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-    const filePath = path.join(uploadDir, fileName);
-    await writeFile(filePath, buffer);
     
-    const cvUrl = `/uploads/cvs/${fileName}`;
+    let cvUrl: string;
+    
+    // Si está en producción (Vercel), usar Blob Storage
+    if (process.env.BLOB_READ_WRITE_TOKEN) {
+      console.log('☁️  Subiendo CV a Vercel Blob:', fileName);
+      const blob = await put(`cvs/${fileName}`, buffer, {
+        access: 'public',
+        contentType: cvFile.type || 'application/pdf',
+      });
+      cvUrl = blob.url;
+      console.log('✅ CV subido a Blob:', cvUrl);
+    } else {
+      // En desarrollo local, guardar en /public/uploads (fallback)
+      console.log('💾 Guardando CV localmente:', fileName);
+      const { writeFile, mkdir } = await import('fs/promises');
+      const path = await import('path');
+      const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'cvs');
+      try {
+        await mkdir(uploadDir, { recursive: true });
+      } catch (err) {
+        // Directory already exists
+      }
+      const filePath = path.join(uploadDir, fileName);
+      await writeFile(filePath, buffer);
+      cvUrl = `/uploads/cvs/${fileName}`;
+      console.log('✅ CV guardado localmente');
+    }
     
     // Extraer texto real del PDF usando pdf-parse
     let cvText = `CV de ${fullName}`; // Fallback si falla la extracción
