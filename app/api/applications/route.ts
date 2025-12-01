@@ -10,6 +10,7 @@ import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 import { mockVacancies, mockCandidates, usingMockData } from '@/lib/mock-data';
 import { aiAgentTemplates } from '@/lib/ai-agent-templates';
+import pdfParse from 'pdf-parse';
 
 export async function POST(request: NextRequest) {
   try {
@@ -68,8 +69,23 @@ export async function POST(request: NextRequest) {
     
     const cvUrl = `/uploads/cvs/${fileName}`;
     
-    // Extraer texto del CV (simplificado - en producción usar pdf-parse)
-    const cvText = `CV de ${fullName}`;
+    // Extraer texto real del PDF usando pdf-parse
+    let cvText = `CV de ${fullName}`; // Fallback si falla la extracción
+    try {
+      console.log('📄 Extrayendo texto del PDF:', fileName);
+      const pdfData = await pdfParse(buffer);
+      
+      if (pdfData.text && pdfData.text.trim().length > 0) {
+        cvText = pdfData.text;
+        console.log('✅ Texto extraído exitosamente:', cvText.length, 'caracteres');
+        console.log('📝 Primeros 200 caracteres:', cvText.substring(0, 200));
+      } else {
+        console.log('⚠️ PDF vacío o sin texto extraíble, usando fallback');
+      }
+    } catch (error) {
+      console.error('⚠️ Error extrayendo texto del PDF:', error);
+      console.log('📝 Usando fallback: texto básico con nombre del candidato');
+    }
     
       // Obtener el agente de IA asociado a la vacante
       let aiAgent = null;
@@ -96,6 +112,9 @@ export async function POST(request: NextRequest) {
       concerns: [] as string[]
     };
     
+    // Variable para la clasificación mapeada (en español para MongoDB)
+    let mappedClassification: 'ideal' | 'potencial' | 'no perfila' = 'potencial';
+    
     try {
       aiAnalysis = await analyzeCandidateCV(
         cvText,
@@ -103,11 +122,32 @@ export async function POST(request: NextRequest) {
         vacancy.requiredSkills || [],
         aiAgent
       );
+      
+      // 🔧 MAPEAR clasificaciones de inglés a español para MongoDB
+      const classificationMap: Record<string, 'ideal' | 'potencial' | 'no perfila'> = {
+        'ideal': 'ideal',
+        'potential': 'potencial',
+        'no-fit': 'no perfila',
+        'no fit': 'no perfila'  // por si viene con espacio
+      };
+      
+      // Convertir clasificación si es necesario
+      const originalClassification = aiAnalysis.classification;
+      if (originalClassification in classificationMap) {
+        mappedClassification = classificationMap[originalClassification];
+      } else {
+        // Fallback si viene algo inesperado
+        console.log('⚠️ Clasificación inesperada:', originalClassification, '- usando fallback');
+        mappedClassification = 'potencial';
+      }
+      
+      console.log('🤖 Análisis IA completado - Score:', aiAnalysis.score, 'Clasificación:', mappedClassification);
+      
     } catch (error) {
       console.error('⚠️  Error analizando CV (requiere OPENAI_API_KEY):', error);
     }
     
-      // Crear candidato
+      // Crear candidato con análisis completo
       let candidate;
       if (usingMockData() || !isMongoDBAvailable()) {
         // En modo mock, simular creación
@@ -119,16 +159,19 @@ export async function POST(request: NextRequest) {
           phone,
           cvPath: cvUrl,
           status: 'applied',
+          aiScore: aiAnalysis.score,
+          aiClassification: mappedClassification,
           aiAnalysis: {
             score: aiAnalysis.score,
-            classification: aiAnalysis.classification,
+            classification: mappedClassification,
             summary: aiAnalysis.summary,
             strengths: aiAnalysis.strengths,
             concerns: aiAnalysis.concerns
           },
           appliedAt: new Date().toISOString()
-        };
+        } as any; // TypeScript cast para compatibilidad con mock
         mockCandidates.push(candidate);
+        console.log('✅ Candidato creado en modo mock con score:', aiAnalysis.score, 'clasificación:', mappedClassification);
     } else {
       candidate = await Candidate.create({
         vacancyId,
@@ -136,12 +179,13 @@ export async function POST(request: NextRequest) {
         email,
         phone,
         cvUrl,
-        cvText,
+        cvText, // Guardar todo el texto extraído del PDF
         aiScore: aiAnalysis.score,
-        aiClassification: aiAnalysis.classification,
+        aiClassification: mappedClassification,
         aiJustification: aiAnalysis.summary,
         status: 'applied'
       });
+      console.log('✅ Candidato creado en DB con score:', aiAnalysis.score, 'clasificación:', mappedClassification);
     }
     
     // Enviar confirmación por email

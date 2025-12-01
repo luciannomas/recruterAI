@@ -12,6 +12,7 @@ export const mockVacancies = [
     requiredSkills: ['React', 'Node.js', 'TypeScript', 'MongoDB', 'Next.js'],
     experienceYears: 5,
     status: 'published',
+    aiAgentId: 'Desarrollador de Software Senior', // Template asignado
     createdAt: '2024-01-15T00:00:00.000Z',
     updatedAt: '2024-01-15T00:00:00.000Z',
   },
@@ -27,6 +28,7 @@ export const mockVacancies = [
     requiredSkills: ['Figma', 'Adobe XD', 'UI Design', 'Prototyping'],
     experienceYears: 3,
     status: 'published',
+    aiAgentId: 'Diseñador UX/UI Senior', // Template asignado
     createdAt: '2024-01-16T00:00:00.000Z',
     updatedAt: '2024-01-16T00:00:00.000Z',
   },
@@ -42,6 +44,7 @@ export const mockVacancies = [
     requiredSkills: ['SEO', 'SEM', 'Google Analytics', 'Social Media', 'Content Marketing'],
     experienceYears: 4,
     status: 'published',
+    aiAgentId: 'Gerente de Marketing Digital', // Template asignado
     createdAt: '2024-01-17T00:00:00.000Z',
     updatedAt: '2024-01-17T00:00:00.000Z',
   },
@@ -57,6 +60,7 @@ export const mockVacancies = [
     requiredSkills: ['SQL', 'Python', 'Tableau', 'Power BI', 'Excel'],
     experienceYears: 2,
     status: 'published',
+    aiAgentId: 'Analista de Datos', // Template asignado
     createdAt: '2024-01-18T00:00:00.000Z',
     updatedAt: '2024-01-18T00:00:00.000Z',
   },
@@ -72,6 +76,7 @@ export const mockVacancies = [
     requiredSkills: ['Comunicación', 'Excel', 'CRM'],
     experienceYears: 0,
     status: 'published',
+    aiAgentId: 'Practicante Junior', // Template asignado
     createdAt: '2024-01-19T00:00:00.000Z',
     updatedAt: '2024-01-19T00:00:00.000Z',
   },
@@ -87,6 +92,7 @@ export const mockVacancies = [
     requiredSkills: ['AWS', 'Docker', 'Kubernetes', 'CI/CD', 'Terraform'],
     experienceYears: 4,
     status: 'published',
+    aiAgentId: 'Desarrollador de Software Senior', // Template asignado (reutilizando)
     createdAt: '2024-01-20T00:00:00.000Z',
     updatedAt: '2024-01-20T00:00:00.000Z',
   },
@@ -102,6 +108,7 @@ export const mockVacancies = [
     requiredSkills: ['Product Strategy', 'Agile', 'Scrum', 'User Research', 'Roadmapping'],
     experienceYears: 5,
     status: 'published',
+    aiAgentId: 'Gerente de Proyectos Senior', // Template asignado
     createdAt: '2024-01-21T00:00:00.000Z',
     updatedAt: '2024-01-21T00:00:00.000Z',
   },
@@ -117,6 +124,7 @@ export const mockVacancies = [
     requiredSkills: ['Contabilidad', 'SAT', 'Excel', 'Auditoría', 'Finanzas'],
     experienceYears: 5,
     status: 'published',
+    aiAgentId: 'Especialista en Finanzas', // Template asignado
     createdAt: '2024-01-22T00:00:00.000Z',
     updatedAt: '2024-01-22T00:00:00.000Z',
   },
@@ -132,6 +140,7 @@ export const mockVacancies = [
     requiredSkills: ['Reclutamiento', 'Nómina', 'Relaciones Laborales', 'Capacitación'],
     experienceYears: 6,
     status: 'published',
+    aiAgentId: 'Especialista en Recursos Humanos', // Template asignado
     createdAt: '2024-01-23',
     updatedAt: '2024-01-23',
   },
@@ -147,6 +156,7 @@ export const mockVacancies = [
     requiredSkills: ['Selenium', 'Jest', 'Cypress', 'API Testing', 'Automation'],
     experienceYears: 3,
     status: 'published',
+    aiAgentId: 'Desarrollador de Software Senior', // Template asignado
     createdAt: '2024-01-24',
     updatedAt: '2024-01-24',
   },
