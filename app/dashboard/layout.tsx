@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useSession, signOut } from 'next-auth/react';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -16,18 +17,21 @@ import {
   LogOut,
   Menu,
   X,
-  Bot
+  Bot,
+  Shield,
+  UserCog
 } from 'lucide-react';
 import { useState } from 'react';
 
-const navigation = [
-  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, badge: null },
-  { name: 'Vacantes', href: '/dashboard/vacancies', icon: Briefcase, badge: null },
-  { name: 'Candidatos', href: '/dashboard/candidates', icon: Users, badge: null },
-  { name: 'Kanban', href: '/dashboard/kanban', icon: Kanban, badge: null },
-  { name: 'Agentes IA', href: '/dashboard/ai-agents', icon: Bot, badge: 'Nuevo' },
-  { name: 'Notificaciones', href: '/dashboard/notifications', icon: Bell, badge: null },
-  { name: 'Configuración', href: '/dashboard/settings', icon: Settings, badge: null },
+const baseNavigation = [
+  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, badge: null, role: null },
+  { name: 'Vacantes', href: '/dashboard/vacancies', icon: Briefcase, badge: null, role: null },
+  { name: 'Candidatos', href: '/dashboard/candidates', icon: Users, badge: null, role: null },
+  { name: 'Kanban', href: '/dashboard/kanban', icon: Kanban, badge: null, role: null },
+  { name: 'Agentes IA', href: '/dashboard/ai-agents', icon: Bot, badge: 'Nuevo', role: null },
+  { name: 'Usuarios', href: '/dashboard/users', icon: UserCog, badge: 'Admin', role: 'superadmin' },
+  { name: 'Notificaciones', href: '/dashboard/notifications', icon: Bell, badge: null, role: null },
+  { name: 'Configuración', href: '/dashboard/settings', icon: Settings, badge: null, role: null },
 ];
 
 export default function DashboardLayout({
@@ -36,7 +40,13 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const { data: session } = useSession();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Filtrar navegación según rol
+  const navigation = baseNavigation.filter(item => 
+    !item.role || (session?.user?.role === item.role)
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -145,19 +155,34 @@ export default function DashboardLayout({
 
           {/* Footer */}
           <div className="p-4 border-t border-gray-100 bg-gray-50">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 mb-3">
               <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                AD
+                {session?.user?.name?.charAt(0).toUpperCase() || 'U'}
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-gray-900 truncate">
-                  Admin
+                  {session?.user?.name || 'Usuario'}
                 </p>
                 <p className="text-xs text-gray-500 truncate">
-                  admin@recruiter.ai
+                  {session?.user?.email}
                 </p>
               </div>
             </div>
+            {session?.user?.role === 'superadmin' && (
+              <Badge className="bg-purple-100 text-purple-800 border-purple-200 mb-2">
+                <Shield className="w-3 h-3 mr-1" />
+                Superadmin
+              </Badge>
+            )}
+            <Button
+              variant="outline"
+              size="sm"
+              className="w-full"
+              onClick={() => signOut({ callbackUrl: '/login' })}
+            >
+              <LogOut className="mr-2 h-4 w-4" />
+              Cerrar Sesión
+            </Button>
           </div>
         </div>
       </div>
