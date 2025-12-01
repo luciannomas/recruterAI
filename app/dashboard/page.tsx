@@ -110,13 +110,13 @@ export default function DashboardPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-4xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-gray-600 mt-2 text-lg">
+          <h1 className="text-4xl font-black text-white">Dashboard CAP</h1>
+          <p className="text-cap-gray-lightest mt-2 text-lg font-semibold">
             Bienvenido a tu panel de reclutamiento inteligente
           </p>
         </div>
         <Link href="/dashboard/vacancies/new">
-          <Button size="lg" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700">
+          <Button size="lg" className="bg-racing-gradient hover:scale-105 transition-transform shadow-racing font-black">
             <Plus className="mr-2 h-5 w-5" />
             Nueva Vacante
           </Button>
@@ -126,19 +126,19 @@ export default function DashboardPage() {
       {/* Stats Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {/* Card 1 */}
-        <Card className="border-2 border-blue-100 bg-gradient-to-br from-blue-50 to-white hover:shadow-lg transition-all">
+        <Card className="border-2 border-cap-red/30 bg-cap-gray-dark/80 backdrop-blur-sm hover:shadow-racing hover:scale-105 transition-all">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-blue-900">
+            <CardTitle className="text-sm font-bold text-cap-gray-lightest">
               Total Vacantes
             </CardTitle>
-            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-              <Briefcase className="h-6 w-6 text-blue-600" />
+            <div className="w-12 h-12 bg-racing-gradient rounded-xl flex items-center justify-center shadow-racing">
+              <Briefcase className="h-6 w-6 text-white" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-4xl font-bold text-blue-900">{stats.totalVacancies}</div>
+            <div className="text-4xl font-black text-white">{stats.totalVacancies}</div>
             <div className="flex items-center gap-2 mt-2">
-              <Badge className="bg-green-100 text-green-700 hover:bg-green-100">
+              <Badge className="bg-cap-red/20 text-cap-red hover:bg-cap-red/20 font-bold border border-cap-red/30">
                 <Activity className="w-3 h-3 mr-1" />
                 {stats.activeVacancies} activas
               </Badge>
@@ -147,19 +147,19 @@ export default function DashboardPage() {
         </Card>
 
         {/* Card 2 */}
-        <Card className="border-2 border-purple-100 bg-gradient-to-br from-purple-50 to-white hover:shadow-lg transition-all">
+        <Card className="border-2 border-cap-gray bg-cap-gray-dark/80 backdrop-blur-sm hover:shadow-racing hover:scale-105 transition-all">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-purple-900">
+            <CardTitle className="text-sm font-bold text-cap-gray-lightest">
               Total Candidatos
             </CardTitle>
-            <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-              <Users className="h-6 w-6 text-purple-600" />
+            <div className="w-12 h-12 bg-cap-gray rounded-xl flex items-center justify-center">
+              <Users className="h-6 w-6 text-cap-gray-lightest" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-4xl font-bold text-purple-900">{stats.totalCandidates}</div>
+            <div className="text-4xl font-black text-white">{stats.totalCandidates}</div>
             <div className="flex items-center gap-2 mt-2">
-              <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100">
+              <Badge className="bg-cap-gray text-cap-gray-lightest hover:bg-cap-gray font-bold">
                 <Calendar className="w-3 h-3 mr-1" />
                 {stats.inInterview} en proceso
               </Badge>
@@ -168,19 +168,19 @@ export default function DashboardPage() {
         </Card>
 
         {/* Card 3 */}
-        <Card className="border-2 border-green-100 bg-gradient-to-br from-green-50 to-white hover:shadow-lg transition-all">
+        <Card className="border-2 border-cap-red/30 bg-cap-gray-dark/80 backdrop-blur-sm hover:shadow-racing hover:scale-105 transition-all">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-green-900">
+            <CardTitle className="text-sm font-bold text-cap-gray-lightest">
               Candidatos Ideales
             </CardTitle>
-            <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-              <TrendingUp className="h-6 w-6 text-green-600" />
+            <div className="w-12 h-12 bg-racing-gradient rounded-xl flex items-center justify-center shadow-racing">
+              <TrendingUp className="h-6 w-6 text-white" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-4xl font-bold text-green-900">{stats.idealCandidates}</div>
+            <div className="text-4xl font-black text-cap-red">{stats.idealCandidates}</div>
             <div className="flex items-center gap-2 mt-2">
-              <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100">
+              <Badge className="bg-cap-red/20 text-cap-red hover:bg-cap-red/20 font-bold border border-cap-red/30">
                 <Sparkles className="w-3 h-3 mr-1" />
                 Por IA
               </Badge>
@@ -189,19 +189,19 @@ export default function DashboardPage() {
         </Card>
 
         {/* Card 4 */}
-        <Card className="border-2 border-orange-100 bg-gradient-to-br from-orange-50 to-white hover:shadow-lg transition-all">
+        <Card className="border-2 border-cap-gray bg-cap-gray-dark/80 backdrop-blur-sm hover:shadow-racing hover:scale-105 transition-all">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-orange-900">
+            <CardTitle className="text-sm font-bold text-cap-gray-lightest">
               Potenciales
             </CardTitle>
-            <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
-              <Target className="h-6 w-6 text-orange-600" />
+            <div className="w-12 h-12 bg-cap-gray rounded-xl flex items-center justify-center">
+              <Target className="h-6 w-6 text-cap-gray-lightest" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-4xl font-bold text-orange-900">{stats.potentialCandidates}</div>
+            <div className="text-4xl font-black text-white">{stats.potentialCandidates}</div>
             <div className="flex items-center gap-2 mt-2">
-              <Badge className="bg-yellow-100 text-yellow-700 hover:bg-yellow-100">
+              <Badge className="bg-cap-gray text-cap-gray-lightest hover:bg-cap-gray font-bold">
                 <CheckCircle2 className="w-3 h-3 mr-1" />
                 En evaluación
               </Badge>
@@ -213,100 +213,100 @@ export default function DashboardPage() {
       {/* Main Grid */}
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Acciones Rápidas - 2 columnas */}
-        <Card className="lg:col-span-2 border-2 hover:shadow-lg transition-all">
+        <Card className="lg:col-span-2 border-2 border-cap-gray bg-cap-gray-dark/80 backdrop-blur-sm hover:shadow-racing transition-all">
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="text-2xl">Acciones Rápidas</CardTitle>
-                <CardDescription className="text-base mt-1">
+                <CardTitle className="text-2xl font-black text-white">Acciones Rápidas</CardTitle>
+                <CardDescription className="text-base mt-1 text-cap-gray-lightest font-semibold">
                   Accede a las funciones principales del sistema
                 </CardDescription>
               </div>
-              <BarChart3 className="h-8 w-8 text-blue-600" />
+              <BarChart3 className="h-8 w-8 text-cap-red" />
             </div>
           </CardHeader>
           <CardContent className="grid md:grid-cols-2 gap-4">
             <Link href="/dashboard/vacancies/new">
-              <div className="group p-6 border-2 rounded-xl hover:border-blue-300 hover:bg-blue-50 transition-all cursor-pointer">
+              <div className="group p-6 border-2 border-cap-gray rounded-xl hover:border-cap-red hover:bg-cap-black transition-all cursor-pointer">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Plus className="h-6 w-6 text-blue-600" />
+                  <div className="w-12 h-12 bg-racing-gradient rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform shadow-racing">
+                    <Plus className="h-6 w-6 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-lg mb-1">Crear Vacante</h3>
-                    <p className="text-sm text-gray-600">
+                    <h3 className="font-bold text-lg mb-1 text-white">Crear Vacante</h3>
+                    <p className="text-sm text-cap-gray-lightest font-semibold">
                       Publica una nueva posición con IA
                     </p>
                   </div>
-                  <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
+                  <ArrowRight className="h-5 w-5 text-cap-gray group-hover:text-cap-red group-hover:translate-x-1 transition-all" />
                 </div>
               </div>
             </Link>
 
             <Link href="/dashboard/kanban">
-              <div className="group p-6 border-2 rounded-xl hover:border-purple-300 hover:bg-purple-50 transition-all cursor-pointer">
+              <div className="group p-6 border-2 border-cap-gray rounded-xl hover:border-cap-red hover:bg-cap-black transition-all cursor-pointer">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Target className="h-6 w-6 text-purple-600" />
+                  <div className="w-12 h-12 bg-cap-gray rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Target className="h-6 w-6 text-cap-gray-lightest" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-lg mb-1">Tablero Kanban</h3>
-                    <p className="text-sm text-gray-600">
+                    <h3 className="font-bold text-lg mb-1 text-white">Tablero Kanban</h3>
+                    <p className="text-sm text-cap-gray-lightest font-semibold">
                       Gestiona candidatos visualmente
                     </p>
                   </div>
-                  <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
+                  <ArrowRight className="h-5 w-5 text-cap-gray group-hover:text-cap-red group-hover:translate-x-1 transition-all" />
                 </div>
               </div>
             </Link>
 
             <Link href="/dashboard/candidates">
-              <div className="group p-6 border-2 rounded-xl hover:border-green-300 hover:bg-green-50 transition-all cursor-pointer">
+              <div className="group p-6 border-2 border-cap-gray rounded-xl hover:border-cap-red hover:bg-cap-black transition-all cursor-pointer">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Users className="h-6 w-6 text-green-600" />
+                  <div className="w-12 h-12 bg-racing-gradient rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform shadow-racing">
+                    <Users className="h-6 w-6 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-lg mb-1">Ver Candidatos</h3>
-                    <p className="text-sm text-gray-600">
+                    <h3 className="font-bold text-lg mb-1 text-white">Ver Candidatos</h3>
+                    <p className="text-sm text-cap-gray-lightest font-semibold">
                       Revisa todos los postulantes
                     </p>
                   </div>
-                  <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-green-600 group-hover:translate-x-1 transition-all" />
+                  <ArrowRight className="h-5 w-5 text-cap-gray group-hover:text-cap-red group-hover:translate-x-1 transition-all" />
                 </div>
               </div>
             </Link>
 
             <Link href="/dashboard/vacancies">
-              <div className="group p-6 border-2 rounded-xl hover:border-indigo-300 hover:bg-indigo-50 transition-all cursor-pointer">
+              <div className="group p-6 border-2 border-cap-gray rounded-xl hover:border-cap-red hover:bg-cap-black transition-all cursor-pointer">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Briefcase className="h-6 w-6 text-indigo-600" />
+                  <div className="w-12 h-12 bg-cap-gray rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Briefcase className="h-6 w-6 text-cap-gray-lightest" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-lg mb-1">Gestionar Vacantes</h3>
-                    <p className="text-sm text-gray-600">
+                    <h3 className="font-bold text-lg mb-1 text-white">Gestionar Vacantes</h3>
+                    <p className="text-sm text-cap-gray-lightest font-semibold">
                       Administra tus posiciones
                     </p>
                   </div>
-                  <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" />
+                  <ArrowRight className="h-5 w-5 text-cap-gray group-hover:text-cap-red group-hover:translate-x-1 transition-all" />
                 </div>
               </div>
             </Link>
 
             <Link href="/dashboard/ai-agents">
-              <div className="group p-6 border-2 rounded-xl hover:border-yellow-300 hover:bg-yellow-50 transition-all cursor-pointer">
+              <div className="group p-6 border-2 border-cap-gray rounded-xl hover:border-cap-red hover:bg-cap-black transition-all cursor-pointer">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Bot className="h-6 w-6 text-yellow-600" />
+                  <div className="w-12 h-12 bg-racing-gradient rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform shadow-racing">
+                    <Bot className="h-6 w-6 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-lg mb-1">Agentes de IA</h3>
-                    <p className="text-sm text-gray-600">
+                    <h3 className="font-bold text-lg mb-1 text-white">Agentes de IA</h3>
+                    <p className="text-sm text-cap-gray-lightest font-semibold">
                       Configura evaluaciones
                     </p>
                   </div>
-                  <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-yellow-600 group-hover:translate-x-1 transition-all" />
+                  <ArrowRight className="h-5 w-5 text-cap-gray group-hover:text-cap-red group-hover:translate-x-1 transition-all" />
                 </div>
               </div>
             </Link>
@@ -314,37 +314,37 @@ export default function DashboardPage() {
         </Card>
 
         {/* Top Candidatos - 1 columna */}
-        <Card className="border-2 hover:shadow-lg transition-all">
+        <Card className="border-2 border-cap-gray bg-cap-gray-dark/80 backdrop-blur-sm hover:shadow-racing transition-all">
           <CardHeader>
-            <CardTitle className="text-xl">Top Candidatos</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-xl font-black text-white">Top Candidatos</CardTitle>
+            <CardDescription className="text-cap-gray-lightest font-semibold">
               Mejor calificados por IA
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             {topCandidates.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
-                <AlertCircle className="h-8 w-8 mx-auto mb-2 text-gray-400" />
-                <p className="text-sm">No hay candidatos aún</p>
+              <div className="text-center py-8 text-cap-gray">
+                <AlertCircle className="h-8 w-8 mx-auto mb-2 text-cap-gray" />
+                <p className="text-sm font-semibold">No hay candidatos aún</p>
               </div>
             ) : (
               topCandidates.map((candidate, index) => (
-                <div key={candidate._id} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
+                <div key={candidate._id} className="flex items-center gap-3 p-3 rounded-lg hover:bg-cap-black transition-colors">
+                  <div className="w-10 h-10 bg-racing-gradient rounded-full flex items-center justify-center text-white font-black shadow-racing">
                     {index + 1}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-sm truncate">{candidate.fullName}</p>
-                    <p className="text-xs text-gray-500 truncate">
+                    <p className="font-bold text-sm truncate text-white">{candidate.fullName}</p>
+                    <p className="text-xs text-cap-gray truncate font-semibold">
                       {typeof candidate.vacancyId === 'object' && candidate.vacancyId?.title 
                         ? candidate.vacancyId.title 
                         : `Vacante ID: ${candidate.vacancyId}`}
                     </p>
                   </div>
-                  <Badge className={`${
-                    candidate.displayScore >= 90 ? 'bg-green-100 text-green-700' :
-                    candidate.displayScore >= 80 ? 'bg-blue-100 text-blue-700' :
-                    'bg-yellow-100 text-yellow-700'
+                  <Badge className={`font-black ${
+                    candidate.displayScore >= 90 ? 'bg-cap-red/20 text-cap-red border border-cap-red/30' :
+                    candidate.displayScore >= 80 ? 'bg-racing-gradient text-white shadow-racing' :
+                    'bg-cap-gray text-cap-gray-lightest'
                   }`}>
                     {candidate.displayScore}
                   </Badge>
@@ -356,15 +356,15 @@ export default function DashboardPage() {
       </div>
 
       {/* Features Banner */}
-      <Card className="border-2 border-indigo-100 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+      <Card className="border-2 border-cap-red/30 bg-gradient-to-br from-cap-gray-dark to-cap-black">
         <CardHeader>
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">
-              <Sparkles className="h-6 w-6 text-indigo-600" />
+            <div className="w-12 h-12 bg-racing-gradient rounded-xl flex items-center justify-center shadow-racing">
+              <Sparkles className="h-6 w-6 text-white" />
             </div>
             <div>
-              <CardTitle className="text-2xl">Potenciado por IA</CardTitle>
-              <CardDescription className="text-base">
+              <CardTitle className="text-2xl font-black text-white">Potenciado por IA</CardTitle>
+              <CardDescription className="text-base text-cap-gray-lightest font-semibold">
                 Características inteligentes para reclutar mejor
               </CardDescription>
             </div>
@@ -372,43 +372,43 @@ export default function DashboardPage() {
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="flex items-start gap-3 p-4 bg-white rounded-lg shadow-sm">
-              <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <CheckCircle2 className="h-5 w-5 text-green-600" />
+            <div className="flex items-start gap-3 p-4 bg-cap-black rounded-lg border border-cap-gray">
+              <div className="w-10 h-10 bg-racing-gradient rounded-lg flex items-center justify-center flex-shrink-0 shadow-racing">
+                <CheckCircle2 className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h4 className="font-semibold text-sm mb-1">Análisis de CVs</h4>
-                <p className="text-xs text-gray-600">Evaluación automática con GPT-4</p>
+                <h4 className="font-bold text-sm mb-1 text-white">Análisis de CVs</h4>
+                <p className="text-xs text-cap-gray-lightest font-semibold">Evaluación automática con GPT-4</p>
               </div>
             </div>
 
-            <div className="flex items-start gap-3 p-4 bg-white rounded-lg shadow-sm">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <FileText className="h-5 w-5 text-blue-600" />
+            <div className="flex items-start gap-3 p-4 bg-cap-black rounded-lg border border-cap-gray">
+              <div className="w-10 h-10 bg-cap-gray rounded-lg flex items-center justify-center flex-shrink-0">
+                <FileText className="h-5 w-5 text-cap-gray-lightest" />
               </div>
               <div>
-                <h4 className="font-semibold text-sm mb-1">Optimización</h4>
-                <p className="text-xs text-gray-600">Descripciones mejoradas por IA</p>
+                <h4 className="font-bold text-sm mb-1 text-white">Optimización</h4>
+                <p className="text-xs text-cap-gray-lightest font-semibold">Descripciones mejoradas por IA</p>
               </div>
             </div>
 
-            <div className="flex items-start gap-3 p-4 bg-white rounded-lg shadow-sm">
-              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <Mail className="h-5 w-5 text-purple-600" />
+            <div className="flex items-start gap-3 p-4 bg-cap-black rounded-lg border border-cap-gray">
+              <div className="w-10 h-10 bg-racing-gradient rounded-lg flex items-center justify-center flex-shrink-0 shadow-racing">
+                <Mail className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h4 className="font-semibold text-sm mb-1">Notificaciones</h4>
-                <p className="text-xs text-gray-600">Email y WhatsApp automáticos</p>
+                <h4 className="font-bold text-sm mb-1 text-white">Notificaciones</h4>
+                <p className="text-xs text-cap-gray-lightest font-semibold">Email y WhatsApp automáticos</p>
               </div>
             </div>
 
-            <div className="flex items-start gap-3 p-4 bg-white rounded-lg shadow-sm">
-              <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <Target className="h-5 w-5 text-orange-600" />
+            <div className="flex items-start gap-3 p-4 bg-cap-black rounded-lg border border-cap-gray">
+              <div className="w-10 h-10 bg-cap-gray rounded-lg flex items-center justify-center flex-shrink-0">
+                <Target className="h-5 w-5 text-cap-gray-lightest" />
               </div>
               <div>
-                <h4 className="font-semibold text-sm mb-1">Gestión Visual</h4>
-                <p className="text-xs text-gray-600">Tablero Kanban drag & drop</p>
+                <h4 className="font-bold text-sm mb-1 text-white">Gestión Visual</h4>
+                <p className="text-xs text-cap-gray-lightest font-semibold">Tablero Kanban drag & drop</p>
               </div>
             </div>
           </div>

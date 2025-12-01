@@ -137,8 +137,8 @@ export default function UsersPage() {
   return (
     <div className="p-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Gestión de Usuarios</h1>
-        <p className="text-gray-600 mt-2">Administra los usuarios del sistema</p>
+        <h1 className="text-3xl font-black text-white">Gestión de Usuarios</h1>
+        <p className="text-cap-gray-lightest mt-2 font-semibold">Administra los usuarios del sistema</p>
       </div>
 
       {error && (

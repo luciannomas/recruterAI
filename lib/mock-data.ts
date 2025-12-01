@@ -13,8 +13,8 @@ export const mockVacancies = [
     experienceYears: 5,
     status: 'published',
     aiAgentId: 'Desarrollador de Software Senior', // Template asignado
-    createdAt: '2024-01-15T00:00:00.000Z',
-    updatedAt: '2024-01-15T00:00:00.000Z',
+    createdAt: '2025-01-15T00:00:00.000Z',
+    updatedAt: '2025-01-15T00:00:00.000Z',
   },
   {
     _id: '2',
@@ -29,8 +29,8 @@ export const mockVacancies = [
     experienceYears: 3,
     status: 'published',
     aiAgentId: 'Diseñador UX/UI Senior', // Template asignado
-    createdAt: '2024-01-16T00:00:00.000Z',
-    updatedAt: '2024-01-16T00:00:00.000Z',
+    createdAt: '2025-01-16T00:00:00.000Z',
+    updatedAt: '2025-01-16T00:00:00.000Z',
   },
   {
     _id: '3',
@@ -45,8 +45,8 @@ export const mockVacancies = [
     experienceYears: 4,
     status: 'published',
     aiAgentId: 'Gerente de Marketing Digital', // Template asignado
-    createdAt: '2024-01-17T00:00:00.000Z',
-    updatedAt: '2024-01-17T00:00:00.000Z',
+    createdAt: '2025-01-17T00:00:00.000Z',
+    updatedAt: '2025-01-17T00:00:00.000Z',
   },
   {
     _id: '4',
@@ -61,8 +61,8 @@ export const mockVacancies = [
     experienceYears: 2,
     status: 'published',
     aiAgentId: 'Analista de Datos', // Template asignado
-    createdAt: '2024-01-18T00:00:00.000Z',
-    updatedAt: '2024-01-18T00:00:00.000Z',
+    createdAt: '2025-01-18T00:00:00.000Z',
+    updatedAt: '2025-01-18T00:00:00.000Z',
   },
   {
     _id: '5',
@@ -77,8 +77,8 @@ export const mockVacancies = [
     experienceYears: 0,
     status: 'published',
     aiAgentId: 'Practicante Junior', // Template asignado
-    createdAt: '2024-01-19T00:00:00.000Z',
-    updatedAt: '2024-01-19T00:00:00.000Z',
+    createdAt: '2025-01-19T00:00:00.000Z',
+    updatedAt: '2025-01-19T00:00:00.000Z',
   },
   {
     _id: '6',
@@ -93,8 +93,8 @@ export const mockVacancies = [
     experienceYears: 4,
     status: 'published',
     aiAgentId: 'Desarrollador de Software Senior', // Template asignado (reutilizando)
-    createdAt: '2024-01-20T00:00:00.000Z',
-    updatedAt: '2024-01-20T00:00:00.000Z',
+    createdAt: '2025-01-20T00:00:00.000Z',
+    updatedAt: '2025-01-20T00:00:00.000Z',
   },
   {
     _id: '7',
@@ -109,8 +109,8 @@ export const mockVacancies = [
     experienceYears: 5,
     status: 'published',
     aiAgentId: 'Gerente de Proyectos Senior', // Template asignado
-    createdAt: '2024-01-21T00:00:00.000Z',
-    updatedAt: '2024-01-21T00:00:00.000Z',
+    createdAt: '2025-01-21T00:00:00.000Z',
+    updatedAt: '2025-01-21T00:00:00.000Z',
   },
   {
     _id: '8',
@@ -125,8 +125,8 @@ export const mockVacancies = [
     experienceYears: 5,
     status: 'published',
     aiAgentId: 'Especialista en Finanzas', // Template asignado
-    createdAt: '2024-01-22T00:00:00.000Z',
-    updatedAt: '2024-01-22T00:00:00.000Z',
+    createdAt: '2025-01-22T00:00:00.000Z',
+    updatedAt: '2025-01-22T00:00:00.000Z',
   },
   {
     _id: '9',
@@ -141,8 +141,8 @@ export const mockVacancies = [
     experienceYears: 6,
     status: 'published',
     aiAgentId: 'Especialista en Recursos Humanos', // Template asignado
-    createdAt: '2024-01-23',
-    updatedAt: '2024-01-23',
+    createdAt: '2025-01-23',
+    updatedAt: '2025-01-23',
   },
   {
     _id: '10',
@@ -157,8 +157,8 @@ export const mockVacancies = [
     experienceYears: 3,
     status: 'published',
     aiAgentId: 'Desarrollador de Software Senior', // Template asignado
-    createdAt: '2024-01-24',
-    updatedAt: '2024-01-24',
+    createdAt: '2025-01-24',
+    updatedAt: '2025-01-24',
   },
 ];
 
@@ -178,7 +178,7 @@ export const mockCandidates = [
       strengths: ['React experto', 'Node.js avanzado', 'TypeScript', 'Arquitectura de software'],
       concerns: ['Ninguna preocupación significativa'],
     },
-    appliedAt: '2024-01-25',
+    appliedAt: '2025-01-25',
   },
   {
     _id: 'c2',
@@ -195,7 +195,7 @@ export const mockCandidates = [
       strengths: ['React', 'Node.js', 'MongoDB', 'Buena comunicación'],
       concerns: ['Menos experiencia con Next.js'],
     },
-    appliedAt: '2024-01-26',
+    appliedAt: '2025-01-26',
   },
   {
     _id: 'c3',
@@ -212,7 +212,7 @@ export const mockCandidates = [
       strengths: ['Figma experto', 'UI Design', 'Prototyping', 'User Research'],
       concerns: ['Experiencia limitada en Adobe XD'],
     },
-    appliedAt: '2024-01-27',
+    appliedAt: '2025-01-27',
   },
   {
     _id: 'c4',
@@ -229,7 +229,7 @@ export const mockCandidates = [
       strengths: ['Figma', 'Creatividad', 'Pasión por el diseño'],
       concerns: ['Solo 2 años de experiencia', 'Portafolio limitado'],
     },
-    appliedAt: '2024-01-28',
+    appliedAt: '2025-01-28',
   },
   {
     _id: 'c5',
@@ -246,7 +246,7 @@ export const mockCandidates = [
       strengths: ['SEO', 'SEM', 'Google Analytics', 'Liderazgo', 'ROI comprobado'],
       concerns: ['Ninguna'],
     },
-    appliedAt: '2024-01-29',
+    appliedAt: '2025-01-29',
   },
   {
     _id: 'c6',
@@ -263,7 +263,7 @@ export const mockCandidates = [
       strengths: ['SQL', 'Python', 'Tableau', 'Análisis estadístico'],
       concerns: ['Menos experiencia con Power BI'],
     },
-    appliedAt: '2024-01-30',
+    appliedAt: '2025-01-30',
   },
   {
     _id: 'c7',
@@ -280,7 +280,7 @@ export const mockCandidates = [
       strengths: ['Comunicación', 'Entusiasmo', 'Disponibilidad'],
       concerns: ['Sin experiencia laboral previa'],
     },
-    appliedAt: '2024-01-31',
+    appliedAt: '2025-01-31',
   },
   {
     _id: 'c8',
@@ -297,7 +297,7 @@ export const mockCandidates = [
       strengths: ['AWS', 'Docker', 'Kubernetes', 'Terraform', 'CI/CD'],
       concerns: ['Ninguna significativa'],
     },
-    appliedAt: '2024-02-01',
+    appliedAt: '2025-02-01',
   },
   {
     _id: 'c9',
@@ -314,7 +314,7 @@ export const mockCandidates = [
       strengths: ['Product Strategy', 'Agile', 'Scrum', 'User Research'],
       concerns: ['Experiencia en industria diferente'],
     },
-    appliedAt: '2024-02-02',
+    appliedAt: '2025-02-02',
   },
   {
     _id: 'c10',
@@ -331,7 +331,7 @@ export const mockCandidates = [
       strengths: ['Contabilidad básica', 'Excel'],
       concerns: ['Solo 3 años de experiencia', 'Sin experiencia en auditoría'],
     },
-    appliedAt: '2024-02-03',
+    appliedAt: '2025-02-03',
   },
   {
     _id: 'c11',
@@ -348,7 +348,7 @@ export const mockCandidates = [
       strengths: ['Selenium', 'Jest', 'API Testing', 'Metodología'],
       concerns: ['Menos experiencia con Cypress'],
     },
-    appliedAt: '2024-02-04',
+    appliedAt: '2025-02-04',
   },
 ];
 
@@ -371,8 +371,8 @@ export const mockAIAgents = [
     systemPrompt: "Eres un Agente de Reclutamiento Técnico Especializado con 15 años de experiencia en desarrollo de software.",
     active: true,
     usageCount: 5,
-    createdAt: '2024-01-10',
-    updatedAt: '2024-01-10',
+    createdAt: '2025-01-10',
+    updatedAt: '2025-01-10',
   },
   {
     _id: 'agent-2',
@@ -391,8 +391,8 @@ export const mockAIAgents = [
     systemPrompt: "Eres un Agente de Reclutamiento Técnico Especializado en perfiles junior.",
     active: true,
     usageCount: 3,
-    createdAt: '2024-01-11',
-    updatedAt: '2024-01-11',
+    createdAt: '2025-01-11',
+    updatedAt: '2025-01-11',
   },
   {
     _id: 'agent-3',
@@ -411,8 +411,8 @@ export const mockAIAgents = [
     systemPrompt: "Eres un Agente de Reclutamiento Especializado en Gerencia de Proyectos Senior.",
     active: true,
     usageCount: 2,
-    createdAt: '2024-01-12',
-    updatedAt: '2024-01-12',
+    createdAt: '2025-01-12',
+    updatedAt: '2025-01-12',
   },
   {
     _id: 'agent-4',
@@ -431,8 +431,8 @@ export const mockAIAgents = [
     systemPrompt: "Eres un Agente de Reclutamiento Especializado en Diseñadores UX/UI.",
     active: true,
     usageCount: 4,
-    createdAt: '2024-01-13',
-    updatedAt: '2024-01-13',
+    createdAt: '2025-01-13',
+    updatedAt: '2025-01-13',
   },
 ];
 

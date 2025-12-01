@@ -62,8 +62,8 @@ export default function CandidatesPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Candidatos</h1>
-        <p className="text-gray-600 mt-2">
+        <h1 className="text-3xl font-black text-white">Candidatos</h1>
+        <p className="text-cap-gray-lightest mt-2 font-semibold">
           Gestiona y evalúa todos los candidatos
         </p>
       </div>

@@ -8,8 +8,8 @@ import { usingMockData } from '@/lib/mock-data';
 let mockAgents = aiAgentTemplates.map((template, index) => ({
   ...template,
   _id: (template as any)._id || `agent-template-${index + 1}`,
-  createdAt: (template as any).createdAt || `2024-01-${10 + index}T00:00:00.000Z`,
-  updatedAt: (template as any).updatedAt || `2024-01-${10 + index}T00:00:00.000Z`,
+  createdAt: (template as any).createdAt || `2025-01-${10 + index}T00:00:00.000Z`,
+  updatedAt: (template as any).updatedAt || `2025-01-${10 + index}T00:00:00.000Z`,
 }));
 
 export async function GET(

@@ -64,12 +64,12 @@ export default function KanbanPage() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Tablero Kanban</h1>
-          <p className="text-gray-600 mt-2">
+          <h1 className="text-3xl font-black text-white">Tablero Kanban</h1>
+          <p className="text-cap-gray-lightest mt-2 font-semibold">
             Arrastra y suelta candidatos para actualizar su estado
           </p>
         </div>
-        <Button variant="outline" onClick={fetchCandidates}>
+        <Button variant="outline" onClick={fetchCandidates} className="border-cap-gray text-cap-gray-lightest hover:border-cap-red hover:text-cap-red font-bold">
           <RefreshCw className="mr-2 h-4 w-4" />
           Actualizar
         </Button>

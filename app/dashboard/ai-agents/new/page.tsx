@@ -200,8 +200,8 @@ Responde SOLO con un JSON válido en este formato:
           </Button>
         </Link>
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Nuevo Agente de IA</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className="text-3xl font-black text-white">Nuevo Agente de IA</h1>
+          <p className="text-cap-gray-lightest mt-1 font-semibold">
             Crea un agente personalizado o parte de una plantilla
           </p>
         </div>

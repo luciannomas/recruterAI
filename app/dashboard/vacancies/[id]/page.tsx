@@ -188,8 +188,8 @@ export default function EditVacancyPage({ params }: { params: { id: string } }) 
           </Button>
         </Link>
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Editar Vacante</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className="text-3xl font-black text-white">Editar Vacante</h1>
+          <p className="text-cap-gray-lightest mt-1 font-semibold">
             Modifica los detalles de la vacante
           </p>
         </div>

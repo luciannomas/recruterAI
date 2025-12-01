@@ -14,12 +14,13 @@ import {
   Clock,
   Search,
   ArrowRight,
-  Sparkles,
-  TrendingUp,
-  Building2,
   Zap,
   Filter,
-  ChevronRight
+  ChevronRight,
+  Target,
+  TrendingUp,
+  Building2,
+  Gauge
 } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
 
@@ -62,73 +63,79 @@ export default function PublicVacanciesPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="min-h-screen bg-gradient-to-br from-cap-gray-darkest to-cap-gray-dark flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cap-red"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Navigation */}
-      <nav className="bg-white border-b shadow-sm sticky top-0 z-50 backdrop-blur-sm bg-white/90">
+    <div className="min-h-screen bg-gradient-to-br from-cap-gray-darkest via-cap-gray-dark to-cap-gray-darkest">
+      {/* Navigation CAP */}
+      <nav className="bg-cap-black/50 border-b border-cap-red/30 shadow-racing backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all">
-                <Briefcase className="w-7 h-7 text-white" />
-              </div>
+              <img 
+                src="/uploads/login.jpeg" 
+                alt="CAP Logo" 
+                className="w-12 h-12 object-contain rounded-full shadow-racing group-hover:scale-105 transition-transform" 
+              />
               <div>
-                <span className="text-2xl font-bold text-gray-900">RecruiterAI</span>
-                <p className="text-xs text-gray-500">Encuentra tu carrera ideal</p>
+                <span className="text-2xl font-black text-white">CAP <span className="text-cap-red">RECRUIT</span></span>
+                <p className="text-xs text-cap-gray uppercase tracking-widest font-bold">Grupo Automotriz</p>
               </div>
             </Link>
             <div className="flex gap-3">
               <Link href="/">
-                <Button variant="ghost">Inicio</Button>
+                <Button variant="ghost" className="text-cap-gray-lightest hover:text-white font-bold">Inicio</Button>
               </Link>
-              <Link href="/dashboard">
-                <Button variant="outline">Panel Admin</Button>
+              <Link href="/login">
+                <Button className="bg-racing-gradient hover:scale-105 transition-transform shadow-racing font-bold">Panel Admin</Button>
               </Link>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 text-white">
-        <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:75px_75px]" />
+      {/* Hero Section CAP Racing */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-cap-black to-cap-gray-dark text-white">
+        {/* Racing stripes */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cap-red to-transparent transform -skew-y-6"></div>
+        </div>
+        
         <div className="container mx-auto px-4 py-20 relative">
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <Badge className="bg-white/20 text-white hover:bg-white/20 border-white/30 backdrop-blur-sm">
-              <Sparkles className="w-3 h-3 mr-1" />
+            <Badge className="bg-racing-gradient text-white hover:bg-racing-gradient border-none backdrop-blur-sm shadow-racing font-bold">
+              <Zap className="w-3 h-3 mr-1" />
               {filteredVacancies.length} Oportunidades Disponibles
             </Badge>
             
-            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight">
+            <h1 className="text-5xl md:text-6xl font-black tracking-tight">
               Encuentra tu
-              <span className="block mt-2 bg-gradient-to-r from-yellow-200 to-pink-200 bg-clip-text text-transparent">
-                Trabajo Soñado
+              <span className="block mt-2 text-cap-red">
+                Carrera Ideal
               </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto">
-              Explora oportunidades únicas y postúlate en minutos con análisis de IA
+            <p className="text-xl md:text-2xl text-cap-gray-lightest max-w-2xl mx-auto font-semibold">
+              Explora oportunidades en CAP Grupo Automotriz con análisis de IA
             </p>
 
             {/* Search Bar */}
             <div className="max-w-3xl mx-auto pt-6">
               <div className="relative group">
-                <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-cap-gray" />
                 <Input
                   placeholder="Buscar por puesto, departamento, ubicación..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-14 pr-5 h-16 text-lg bg-white shadow-2xl border-0 focus:ring-2 focus:ring-yellow-400"
+                  className="pl-14 pr-5 h-16 text-lg bg-cap-gray-dark border-cap-gray focus:border-cap-red shadow-racing-lg text-white placeholder:text-cap-gray font-semibold"
                 />
                 <Button 
                   size="lg"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-racing-gradient hover:scale-105 transition-transform shadow-racing font-bold"
                 >
                   <Search className="h-5 w-5" />
                 </Button>
@@ -138,54 +145,54 @@ export default function PublicVacanciesPage() {
         </div>
       </section>
 
-      {/* Stats Section */}
+      {/* Stats Section CAP */}
       <section className="container mx-auto px-4 -mt-10 relative z-10">
         <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-          <Card className="border-2 border-blue-100 bg-white shadow-xl hover:shadow-2xl transition-all">
+          <Card className="border-2 border-cap-red/30 bg-cap-gray-dark/80 backdrop-blur-sm shadow-racing-xl hover:scale-105 transition-transform">
             <CardContent className="pt-6 text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <Briefcase className="w-6 h-6 text-blue-600" />
+              <div className="w-12 h-12 bg-racing-gradient rounded-xl flex items-center justify-center mx-auto mb-3 shadow-racing">
+                <Briefcase className="w-6 h-6 text-white" />
               </div>
-              <div className="text-4xl font-bold text-blue-600 mb-1">
+              <div className="text-4xl font-black text-cap-red mb-1">
                 {filteredVacancies.length}
               </div>
-              <p className="text-sm text-gray-600 font-medium">Vacantes Activas</p>
+              <p className="text-sm text-cap-gray-lightest font-bold">Vacantes Activas</p>
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-green-100 bg-white shadow-xl hover:shadow-2xl transition-all">
+          <Card className="border-2 border-cap-gray bg-cap-gray-dark/80 backdrop-blur-sm shadow-racing-xl hover:scale-105 transition-transform">
             <CardContent className="pt-6 text-center">
-              <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <Building2 className="w-6 h-6 text-green-600" />
+              <div className="w-12 h-12 bg-cap-gray rounded-xl flex items-center justify-center mx-auto mb-3">
+                <Building2 className="w-6 h-6 text-cap-gray-lightest" />
               </div>
-              <div className="text-4xl font-bold text-green-600 mb-1">
+              <div className="text-4xl font-black text-white mb-1">
                 {new Set(filteredVacancies.map(v => v.department)).size}
               </div>
-              <p className="text-sm text-gray-600 font-medium">Departamentos</p>
+              <p className="text-sm text-cap-gray-lightest font-bold">Departamentos</p>
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-purple-100 bg-white shadow-xl hover:shadow-2xl transition-all">
+          <Card className="border-2 border-cap-red/30 bg-cap-gray-dark/80 backdrop-blur-sm shadow-racing-xl hover:scale-105 transition-transform">
             <CardContent className="pt-6 text-center">
-              <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <Zap className="w-6 h-6 text-purple-600" />
+              <div className="w-12 h-12 bg-racing-gradient rounded-xl flex items-center justify-center mx-auto mb-3 shadow-racing">
+                <Gauge className="w-6 h-6 text-white" />
               </div>
-              <div className="text-4xl font-bold text-purple-600 mb-1">
+              <div className="text-4xl font-black text-cap-red mb-1">
                 24h
               </div>
-              <p className="text-sm text-gray-600 font-medium">Respuesta Promedio</p>
+              <p className="text-sm text-cap-gray-lightest font-bold">Respuesta Promedio</p>
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-orange-100 bg-white shadow-xl hover:shadow-2xl transition-all">
+          <Card className="border-2 border-cap-gray bg-cap-gray-dark/80 backdrop-blur-sm shadow-racing-xl hover:scale-105 transition-transform">
             <CardContent className="pt-6 text-center">
-              <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <TrendingUp className="w-6 h-6 text-orange-600" />
+              <div className="w-12 h-12 bg-cap-gray rounded-xl flex items-center justify-center mx-auto mb-3">
+                <TrendingUp className="w-6 h-6 text-cap-gray-lightest" />
               </div>
-              <div className="text-4xl font-bold text-orange-600 mb-1">
+              <div className="text-4xl font-black text-white mb-1">
                 95%
               </div>
-              <p className="text-sm text-gray-600 font-medium">Tasa de Match IA</p>
+              <p className="text-sm text-cap-gray-lightest font-bold">Tasa de Match IA</p>
             </CardContent>
           </Card>
         </div>
@@ -195,14 +202,14 @@ export default function PublicVacanciesPage() {
       <section className="container mx-auto px-4 py-16">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+            <h2 className="text-3xl font-black text-white mb-2">
               {searchTerm ? 'Resultados de Búsqueda' : 'Todas las Oportunidades'}
             </h2>
-            <p className="text-gray-600">
+            <p className="text-cap-gray-lightest font-semibold">
               {filteredVacancies.length} {filteredVacancies.length === 1 ? 'vacante' : 'vacantes'} {searchTerm && `para "${searchTerm}"`}
             </p>
           </div>
-          <Button variant="outline" className="hidden md:flex">
+          <Button variant="outline" className="hidden md:flex border-cap-gray text-cap-gray-lightest hover:border-cap-red hover:text-cap-red font-bold">
             <Filter className="mr-2 h-4 w-4" />
             Filtros
           </Button>
@@ -210,19 +217,19 @@ export default function PublicVacanciesPage() {
 
         {/* Vacancies Grid */}
         {filteredVacancies.length === 0 ? (
-          <Card className="max-w-2xl mx-auto border-2">
+          <Card className="max-w-2xl mx-auto border-2 border-cap-gray bg-cap-gray-dark/80">
             <CardContent className="py-20 text-center">
-              <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Briefcase className="w-10 h-10 text-gray-400" />
+              <div className="w-20 h-20 bg-cap-gray-dark rounded-full flex items-center justify-center mx-auto mb-6">
+                <Briefcase className="w-10 h-10 text-cap-gray" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">
+              <h3 className="text-2xl font-black text-white mb-3">
                 No se encontraron vacantes
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-cap-gray-lightest mb-6 font-semibold">
                 {searchTerm ? 'Intenta con otros términos de búsqueda' : 'Vuelve pronto para ver nuevas oportunidades'}
               </p>
               {searchTerm && (
-                <Button onClick={() => setSearchTerm('')} variant="outline">
+                <Button onClick={() => setSearchTerm('')} className="bg-racing-gradient hover:scale-105 transition-transform font-bold">
                   Limpiar Búsqueda
                 </Button>
               )}
@@ -233,67 +240,67 @@ export default function PublicVacanciesPage() {
             {filteredVacancies.map((vacancy) => (
               <Card 
                 key={vacancy._id} 
-                className="group border-2 hover:shadow-2xl hover:border-blue-300 transition-all duration-300 hover:-translate-y-1 flex flex-col"
+                className="group border-2 border-cap-gray bg-cap-gray-dark/80 backdrop-blur-sm hover:shadow-racing-xl hover:border-cap-red transition-all duration-300 hover:-translate-y-1 flex flex-col"
               >
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between mb-3">
-                    <Badge className="bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700">
-                      <Sparkles className="w-3 h-3 mr-1" />
+                    <Badge className="bg-racing-gradient text-white hover:bg-racing-gradient font-bold shadow-racing">
+                      <Zap className="w-3 h-3 mr-1" />
                       Activa
                     </Badge>
-                    <Badge variant="outline" className="capitalize border-2">
+                    <Badge variant="outline" className="capitalize border-2 border-cap-gray text-cap-gray-lightest font-bold">
                       {vacancy.employmentType === 'full-time' && 'Tiempo Completo'}
                       {vacancy.employmentType === 'part-time' && 'Medio Tiempo'}
                       {vacancy.employmentType === 'contract' && 'Contrato'}
                       {vacancy.employmentType === 'internship' && 'Prácticas'}
                     </Badge>
                   </div>
-                  <CardTitle className="text-xl leading-tight group-hover:text-blue-600 transition-colors">
+                  <CardTitle className="text-xl leading-tight group-hover:text-cap-red transition-colors font-black text-white">
                     {vacancy.title}
                   </CardTitle>
                   <div className="flex items-center gap-2 mt-2">
-                    <Building2 className="w-4 h-4 text-gray-400" />
-                    <CardDescription className="text-base font-medium">
+                    <Building2 className="w-4 h-4 text-cap-gray" />
+                    <CardDescription className="text-base font-bold text-cap-gray-lightest">
                       {vacancy.department}
                     </CardDescription>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4 flex-1 flex flex-col">
                   <div className="space-y-2.5 flex-1">
-                    <div className="flex items-center text-sm text-gray-700">
-                      <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
-                        <MapPin className="w-4 h-4 text-gray-600" />
+                    <div className="flex items-center text-sm text-cap-gray-lightest">
+                      <div className="w-8 h-8 bg-cap-black rounded-lg flex items-center justify-center mr-3">
+                        <MapPin className="w-4 h-4 text-cap-gray" />
                       </div>
-                      <span className="font-medium">{vacancy.location}</span>
+                      <span className="font-bold">{vacancy.location}</span>
                     </div>
-                    <div className="flex items-center text-sm text-gray-700">
-                      <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                        <DollarSign className="w-4 h-4 text-green-600" />
+                    <div className="flex items-center text-sm text-cap-gray-lightest">
+                      <div className="w-8 h-8 bg-racing-gradient/20 rounded-lg flex items-center justify-center mr-3">
+                        <DollarSign className="w-4 h-4 text-cap-red" />
                       </div>
-                      <span className="font-medium">
+                      <span className="font-bold">
                         {formatCurrency(vacancy.salary.min)} - {formatCurrency(vacancy.salary.max)}
                       </span>
                     </div>
                     {vacancy.experienceYears > 0 && (
-                      <div className="flex items-center text-sm text-gray-700">
-                        <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
-                          <Clock className="w-4 h-4 text-blue-600" />
+                      <div className="flex items-center text-sm text-cap-gray-lightest">
+                        <div className="w-8 h-8 bg-cap-black rounded-lg flex items-center justify-center mr-3">
+                          <Clock className="w-4 h-4 text-cap-gray" />
                         </div>
-                        <span className="font-medium">{vacancy.experienceYears} años de experiencia</span>
+                        <span className="font-bold">{vacancy.experienceYears} años de experiencia</span>
                       </div>
                     )}
                   </div>
 
                   {vacancy.requiredSkills && vacancy.requiredSkills.length > 0 && (
-                    <div className="pt-3 border-t">
+                    <div className="pt-3 border-t border-cap-gray">
                       <div className="flex flex-wrap gap-2 min-h-[28px]">
                         {vacancy.requiredSkills.slice(0, 3).map((skill: string, i: number) => (
-                          <Badge key={i} variant="secondary" className="text-xs font-medium">
+                          <Badge key={i} className="text-xs font-bold bg-cap-black text-cap-gray-lightest border border-cap-gray">
                             {skill}
                           </Badge>
                         ))}
                         {vacancy.requiredSkills.length > 3 && (
-                          <Badge variant="secondary" className="text-xs font-medium">
+                          <Badge className="text-xs font-bold bg-cap-red/20 text-cap-red border border-cap-red/30">
                             +{vacancy.requiredSkills.length - 3} más
                           </Badge>
                         )}
@@ -302,8 +309,8 @@ export default function PublicVacanciesPage() {
                   )}
 
                   <div className="pt-4 mt-auto">
-                    <Link href={`/apply/${vacancy._id}`} className="block">
-                      <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg group-hover:shadow-xl transition-all h-12 text-base font-semibold">
+                    <Link href={`/apply/${vacancy._id}`}>
+                      <Button className="w-full bg-racing-gradient hover:scale-105 transition-transform shadow-racing-lg h-12 text-base font-black">
                         Postularme Ahora
                         <ChevronRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                       </Button>
@@ -316,17 +323,20 @@ export default function PublicVacanciesPage() {
         )}
       </section>
 
-      {/* CTA Banner */}
-      <section className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 py-16">
-        <div className="container mx-auto px-4">
+      {/* CTA Banner CAP */}
+      <section className="bg-racing-gradient py-16 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent transform skew-y-3"></div>
+        </div>
+        <div className="container mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto text-center text-white space-y-6">
-            <h2 className="text-4xl md:text-5xl font-bold">
+            <h2 className="text-4xl md:text-5xl font-black">
               ¿No encuentras lo que buscas?
             </h2>
-            <p className="text-xl text-blue-100">
+            <p className="text-xl text-white/90 font-semibold">
               Déjanos tu CV y te notificaremos cuando haya nuevas oportunidades que coincidan con tu perfil
             </p>
-            <Button size="lg" variant="secondary" className="text-lg h-14 px-8">
+            <Button size="lg" className="bg-white text-cap-red hover:scale-110 transition-transform text-lg h-14 px-8 font-black shadow-racing-xl">
               Subir mi CV
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -334,56 +344,56 @@ export default function PublicVacanciesPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-12">
+      {/* Footer CAP */}
+      <footer className="bg-cap-black border-t border-cap-red/20 text-cap-gray py-12">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center">
-                  <Briefcase className="w-6 h-6 text-white" />
+                <img src="/uploads/login.jpeg" alt="CAP Logo" className="w-12 h-12 object-contain rounded-full shadow-racing" />
+                <div>
+                  <span className="text-xl font-black text-white">CAP RECRUIT</span>
+                  <p className="text-xs text-cap-gray uppercase">Grupo Automotriz</p>
                 </div>
-                <span className="text-xl font-bold text-white">RecruiterAI</span>
               </div>
-              <p className="text-sm">
+              <p className="text-sm font-semibold">
                 Encuentra tu próximo trabajo con inteligencia artificial
               </p>
             </div>
 
             <div>
-              <h3 className="text-white font-semibold mb-4">Para Candidatos</h3>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/vacancies" className="hover:text-white">Ver Vacantes</Link></li>
-                <li><a href="#" className="hover:text-white">Subir CV</a></li>
-                <li><a href="#" className="hover:text-white">Mis Aplicaciones</a></li>
+              <h3 className="text-white font-black mb-4">Para Candidatos</h3>
+              <ul className="space-y-2 text-sm font-semibold">
+                <li><Link href="/vacancies" className="hover:text-cap-red transition-colors">Ver Vacantes</Link></li>
+                <li><Link href="/#" className="hover:text-cap-red transition-colors">Subir CV</Link></li>
+                <li><Link href="/#" className="hover:text-cap-red transition-colors">Mis Aplicaciones</Link></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-white font-semibold mb-4">Para Empresas</h3>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/dashboard" className="hover:text-white">Dashboard</Link></li>
-                <li><a href="#" className="hover:text-white">Publicar Vacante</a></li>
-                <li><a href="#" className="hover:text-white">Ver Candidatos</a></li>
+              <h3 className="text-white font-black mb-4">Para Empresas</h3>
+              <ul className="space-y-2 text-sm font-semibold">
+                <li><Link href="/login" className="hover:text-cap-red transition-colors">Dashboard</Link></li>
+                <li><Link href="/#" className="hover:text-cap-red transition-colors">Publicar Vacante</Link></li>
+                <li><Link href="/#" className="hover:text-cap-red transition-colors">Ver Candidatos</Link></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-white font-semibold mb-4">Legal</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white">Privacidad</a></li>
-                <li><a href="#" className="hover:text-white">Términos</a></li>
-                <li><a href="#" className="hover:text-white">Contacto</a></li>
+              <h3 className="text-white font-black mb-4">Legal</h3>
+              <ul className="space-y-2 text-sm font-semibold">
+                <li><Link href="/#" className="hover:text-cap-red transition-colors">Privacidad</Link></li>
+                <li><Link href="/#" className="hover:text-cap-red transition-colors">Términos</Link></li>
+                <li><Link href="/#" className="hover:text-cap-red transition-colors">Contacto</Link></li>
               </ul>
             </div>
           </div>
 
-          <div className="border-t border-gray-800 pt-8 text-center text-sm">
-            <p>&copy; 2024 RecruiterAI. Todos los derechos reservados.</p>
+          <div className="border-t border-cap-gray-dark pt-8 text-center text-sm">
+            <p className="font-semibold">© 2025 CAP Grupo Automotriz. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
     </div>
   );
 }
-

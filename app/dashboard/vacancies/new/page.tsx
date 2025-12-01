@@ -163,8 +163,8 @@ export default function NewVacancyPage() {
           </Button>
         </Link>
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Nueva Vacante</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className="text-3xl font-black text-white">Nueva Vacante</h1>
+          <p className="text-cap-gray-lightest mt-1 font-semibold">
             Crea una nueva posición y publícala cuando esté lista
           </p>
         </div>

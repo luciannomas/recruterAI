@@ -51,6 +51,35 @@ const config: Config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        // Colores CAP Grupo Automotriz - Racing Theme
+        cap: {
+          red: {
+            DEFAULT: '#C41E3A',
+            dark: '#A01727',
+            light: '#D63851',
+            50: '#FEE5E9',
+            100: '#FCCCD4',
+          },
+          gray: {
+            darkest: '#1A1A1A',
+            dark: '#2D2D2D',
+            DEFAULT: '#616161',
+            light: '#9E9E9E',
+            lightest: '#E0E0E0',
+          },
+          black: '#000000',
+        },
+      },
+      backgroundImage: {
+        'racing-gradient': 'linear-gradient(135deg, #C41E3A 0%, #A01727 100%)',
+        'racing-gradient-dark': 'linear-gradient(135deg, #A01727 0%, #7A1120 100%)',
+        'dark-gradient': 'linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%)',
+        'gray-gradient': 'linear-gradient(135deg, #2D2D2D 0%, #1A1A1A 100%)',
+      },
+      boxShadow: {
+        'racing': '0 4px 20px rgba(196, 30, 58, 0.3)',
+        'racing-lg': '0 8px 30px rgba(196, 30, 58, 0.4)',
+        'racing-xl': '0 12px 40px rgba(196, 30, 58, 0.5)',
       },
       borderRadius: {
         lg: 'var(--radius)',

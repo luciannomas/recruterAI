@@ -5,14 +5,14 @@ const superadmins = [
   {
     name: 'Luciano Mastrangelo',
     email: 'luciano.mastran@gmail.com',
-    password: 'Admin2024!', // Cambiar en producción
+    password: 'Admin2025!', // Cambiar en producción
     role: 'superadmin',
     active: true,
   },
   {
     name: 'Gerencia CAP',
     email: 'gerencia@cap.hn',
-    password: 'Gerencia2024!', // Cambiar en producción
+    password: 'Gerencia2025!', // Cambiar en producción
     role: 'superadmin',
     active: true,
   },
