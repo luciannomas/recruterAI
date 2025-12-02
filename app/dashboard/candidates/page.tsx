@@ -1,35 +1,71 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { getClassificationColor, getScoreColor, getStatusColor } from '@/lib/utils';
-import { Search, Mail, Phone, FileText, ExternalLink } from 'lucide-react';
+import { Search, Mail, Phone, FileText, Trash2, AlertTriangle, X, ChevronLeft, ChevronRight, Filter } from 'lucide-react';
 
 export default function CandidatesPage() {
   const [candidates, setcandidates] = useState<any[]>([]);
-  const [filteredCandidates, setFilteredCandidates] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [candidateToDelete, setCandidateToDelete] = useState<any>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  
+  // Paginación
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  
+  // Filtros
+  const [filterStatus, setFilterStatus] = useState('all');
+  const [filterClassification, setFilterClassification] = useState('all');
 
   useEffect(() => {
     fetchCandidates();
   }, []);
 
-  useEffect(() => {
+  // Filtrado y paginación
+  const filteredAndPaginatedCandidates = useMemo(() => {
+    let filtered = candidates;
+
+    // Filtro por búsqueda
     if (searchTerm) {
-      const filtered = candidates.filter(c =>
+      filtered = filtered.filter(c =>
         c.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         c.email.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      setFilteredCandidates(filtered);
-    } else {
-      setFilteredCandidates(candidates);
     }
-  }, [searchTerm, candidates]);
+
+    // Filtro por estado
+    if (filterStatus !== 'all') {
+      filtered = filtered.filter(c => c.status === filterStatus);
+    }
+
+    // Filtro por clasificación
+    if (filterClassification !== 'all') {
+      filtered = filtered.filter(c => c.aiClassification === filterClassification);
+    }
+
+    // Calcular paginación
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginated = filtered.slice(startIndex, endIndex);
+
+    return { filtered, paginated, totalCount: filtered.length };
+  }, [candidates, searchTerm, filterStatus, filterClassification, currentPage]);
+
+  const totalPages = Math.ceil(filteredAndPaginatedCandidates.totalCount / itemsPerPage);
+
+  // Reset a página 1 cuando cambian los filtros
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, filterStatus, filterClassification]);
 
   const fetchCandidates = async () => {
     try {
@@ -45,7 +81,6 @@ export default function CandidatesPage() {
         }));
         
         setcandidates(normalizedCandidates);
-        setFilteredCandidates(normalizedCandidates);
       }
     } catch (error) {
       console.error('Error fetching candidates:', error);
@@ -54,8 +89,34 @@ export default function CandidatesPage() {
     }
   };
 
+  const openDeleteModal = (candidate: any) => {
+    setCandidateToDelete(candidate);
+    setDeleteModalOpen(true);
+  };
+
+  const handleDelete = async () => {
+    if (!candidateToDelete) return;
+
+    setIsDeleting(true);
+    try {
+      await axios.delete(`/api/candidates/${candidateToDelete._id}`);
+      setcandidates(candidates.filter(c => c._id !== candidateToDelete._id));
+      setDeleteModalOpen(false);
+      setCandidateToDelete(null);
+    } catch (error) {
+      console.error('Error al eliminar el candidato:', error);
+      alert('Error al eliminar el candidato');
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   if (loading) {
-    return <div className="animate-pulse">Cargando candidatos...</div>;
+    return (
+      <div className="flex items-center justify-center h-96">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cap-red"></div>
+      </div>
+    );
   }
 
   return (
@@ -68,75 +129,135 @@ export default function CandidatesPage() {
         </p>
       </div>
 
-      {/* Search */}
-      <div className="flex gap-4">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+      {/* Filtros y Búsqueda */}
+      <Card className="border-2 border-cap-gray bg-cap-gray-dark/80 backdrop-blur-sm">
+        <CardContent className="p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Filter className="w-4 h-4 text-cap-red" />
+            <span className="text-sm font-bold text-white uppercase">Filtros</span>
+          </div>
+          <div className="grid md:grid-cols-3 gap-4">
+            {/* Búsqueda */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-cap-gray" />
           <Input
             placeholder="Buscar por nombre o email..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
+                className="pl-10 bg-cap-black border-cap-gray text-white placeholder:text-cap-gray focus:border-cap-red font-semibold"
           />
         </div>
+
+            {/* Filtro por Estado */}
+            <select
+              value={filterStatus}
+              onChange={(e) => setFilterStatus(e.target.value)}
+              className="px-4 py-2 border-2 border-cap-gray rounded-md bg-cap-black text-white font-bold focus:border-cap-red"
+            >
+              <option value="all">📋 Todos los Estados</option>
+              <option value="applied">📝 Aplicado</option>
+              <option value="screening">🔍 Screening</option>
+              <option value="interview">💬 Entrevista</option>
+              <option value="evaluation">📊 Evaluación</option>
+              <option value="offer">💼 Oferta</option>
+              <option value="hired">✅ Contratado</option>
+              <option value="rejected">❌ Rechazado</option>
+            </select>
+
+            {/* Filtro por Clasificación IA */}
+            <select
+              value={filterClassification}
+              onChange={(e) => setFilterClassification(e.target.value)}
+              className="px-4 py-2 border-2 border-cap-gray rounded-md bg-cap-black text-white font-bold focus:border-cap-red"
+            >
+              <option value="all">🤖 Todas las Clasificaciones</option>
+              <option value="ideal">⭐ Ideal</option>
+              <option value="potencial">💡 Potencial</option>
+              <option value="no perfila">⚠️ No Perfila</option>
+            </select>
       </div>
+          
+          {/* Resumen de filtros */}
+          <div className="mt-3 flex items-center justify-between">
+            <p className="text-sm text-cap-gray-lightest font-semibold">
+              Mostrando {filteredAndPaginatedCandidates.paginated.length} de {filteredAndPaginatedCandidates.totalCount} candidatos
+            </p>
+            {(filterStatus !== 'all' || filterClassification !== 'all' || searchTerm) && (
+              <Button 
+                size="sm" 
+                variant="outline"
+                onClick={() => {
+                  setSearchTerm('');
+                  setFilterStatus('all');
+                  setFilterClassification('all');
+                }}
+                className="border-cap-red text-cap-red hover:bg-cap-red hover:text-white font-bold text-xs"
+              >
+                <X className="w-3 h-3 mr-1" />
+                Limpiar Filtros
+              </Button>
+            )}
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Candidates List */}
-      {filteredCandidates.length === 0 ? (
-        <Card>
+      {filteredAndPaginatedCandidates.totalCount === 0 ? (
+        <Card className="bg-cap-gray-dark/80 backdrop-blur-sm border-2 border-cap-gray">
           <CardContent className="py-16 text-center">
-            <p className="text-gray-500">
-              {searchTerm ? 'No se encontraron candidatos' : 'No hay candidatos registrados'}
+            <p className="text-cap-gray-lightest font-semibold text-lg">
+              {searchTerm || filterStatus !== 'all' || filterClassification !== 'all' ? 'No se encontraron candidatos con estos filtros' : 'No hay candidatos registrados'}
             </p>
           </CardContent>
         </Card>
       ) : (
+        <>
         <div className="space-y-4">
-          {filteredCandidates.map((candidate) => (
-            <Card key={candidate._id} className="hover:shadow-md transition-shadow">
+            {filteredAndPaginatedCandidates.paginated.map((candidate) => (
+            <Card key={candidate._id} className="bg-cap-gray-dark/80 backdrop-blur-sm border-2 border-cap-gray hover:border-cap-red hover:shadow-racing transition-all">
               <CardContent className="p-6">
                 <div className="flex items-start justify-between">
                   <div className="flex-1 space-y-3">
                     <div className="flex items-start gap-4">
                       <div className="flex-1">
-                        <h3 className="text-lg font-semibold">{candidate.fullName}</h3>
-                        <p className="text-sm text-gray-600">
+                        <h3 className="text-lg font-black text-white">{candidate.fullName}</h3>
+                        <p className="text-sm text-cap-gray-lightest font-semibold">
                           {candidate.vacancyId?.title || 'Vacante no disponible'}
                         </p>
                       </div>
                       
                       <div className="flex items-center gap-3">
                         <div className="text-right">
-                          <div className={`text-2xl font-bold ${getScoreColor(candidate.aiScore)}`}>
+                          <div className={`text-2xl font-black ${getScoreColor(candidate.aiScore)}`}>
                             {candidate.aiScore}
                           </div>
-                          <div className="text-xs text-gray-500">Puntaje IA</div>
+                          <div className="text-xs text-cap-gray-lightest font-bold">Puntaje IA</div>
                         </div>
                       </div>
                     </div>
 
                     <div className="flex flex-wrap gap-2">
-                      <Badge className={getStatusColor(candidate.status)}>
+                      <Badge className={`${getStatusColor(candidate.status)} font-bold border`}>
                         {candidate.status}
                       </Badge>
-                      <Badge className={`${getClassificationColor(candidate.aiClassification)} text-white`}>
+                      <Badge className={`${getClassificationColor(candidate.aiClassification)} text-white font-bold border`}>
                         {candidate.aiClassification}
                       </Badge>
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-2 text-sm">
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Mail className="w-4 h-4" />
+                      <div className="flex items-center gap-2 text-cap-gray-lightest font-semibold">
+                        <Mail className="w-4 h-4 text-cap-gray" />
                         {candidate.email}
                       </div>
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Phone className="w-4 h-4" />
+                      <div className="flex items-center gap-2 text-cap-gray-lightest font-semibold">
+                        <Phone className="w-4 h-4 text-cap-gray" />
                         {candidate.phone}
                       </div>
                     </div>
 
                     {candidate.aiJustification && (
-                      <p className="text-sm text-gray-600 italic">
+                      <p className="text-sm text-cap-gray-lightest italic font-semibold bg-cap-black p-3 rounded-lg border border-cap-gray">
                         {candidate.aiJustification}
                       </p>
                     )}
@@ -146,16 +267,20 @@ export default function CandidatesPage() {
                         href={candidate.cvUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-block"
+                        className="flex-1"
                       >
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" className="w-full border-2 border-cap-gray text-cap-gray-lightest hover:border-cap-red hover:text-cap-red font-bold transition-all">
                           <FileText className="w-4 h-4 mr-2" />
                           Ver CV
                         </Button>
                       </a>
-                      <Button variant="outline" size="sm">
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Ver Detalles
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => openDeleteModal(candidate)}
+                        className="border-2 border-cap-red text-cap-red hover:bg-cap-red hover:text-white font-bold transition-all"
+                      >
+                        <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
                   </div>
@@ -164,7 +289,150 @@ export default function CandidatesPage() {
             </Card>
           ))}
         </div>
+
+          {/* Paginación */}
+          {totalPages > 1 && (
+            <Card className="mt-6 border-2 border-cap-gray bg-cap-gray-dark/80 backdrop-blur-sm">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div className="text-sm text-cap-gray-lightest font-semibold">
+                    Página {currentPage} de {totalPages}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                      disabled={currentPage === 1}
+                      className="border-2 border-cap-gray text-cap-gray-lightest hover:border-cap-red hover:text-cap-red disabled:opacity-50 disabled:cursor-not-allowed font-bold transition-all"
+                    >
+                      <ChevronLeft className="w-4 h-4 mr-1" />
+                      Anterior
+                    </Button>
+                    
+                    {/* Números de página */}
+                    <div className="flex items-center gap-1">
+                      {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                        let pageNum;
+                        if (totalPages <= 5) {
+                          pageNum = i + 1;
+                        } else if (currentPage <= 3) {
+                          pageNum = i + 1;
+                        } else if (currentPage >= totalPages - 2) {
+                          pageNum = totalPages - 4 + i;
+                        } else {
+                          pageNum = currentPage - 2 + i;
+                        }
+                        
+                        return (
+                          <Button
+                            key={pageNum}
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setCurrentPage(pageNum)}
+                            className={`w-10 h-10 p-0 ${
+                              currentPage === pageNum 
+                                ? 'bg-racing-gradient text-white border-cap-red shadow-racing font-black' 
+                                : 'border-2 border-cap-gray text-cap-gray-lightest hover:border-cap-red hover:text-cap-red font-bold'
+                            } transition-all`}
+                          >
+                            {pageNum}
+                          </Button>
+                        );
+                      })}
+                    </div>
+
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                      disabled={currentPage === totalPages}
+                      className="border-2 border-cap-gray text-cap-gray-lightest hover:border-cap-red hover:text-cap-red disabled:opacity-50 disabled:cursor-not-allowed font-bold transition-all"
+                    >
+                      Siguiente
+                      <ChevronRight className="w-4 h-4 ml-1" />
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </>
       )}
+
+      {/* Modal de Confirmación de Eliminación */}
+      <Dialog open={deleteModalOpen} onOpenChange={setDeleteModalOpen}>
+        <DialogContent className="bg-cap-gray-dark border-2 border-cap-red text-white max-w-md">
+          <DialogHeader>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-cap-red/20 rounded-full flex items-center justify-center border-2 border-cap-red">
+                  <AlertTriangle className="w-6 h-6 text-cap-red" />
+                </div>
+                <DialogTitle className="text-2xl font-black text-white">
+                  ¿Eliminar Candidato?
+                </DialogTitle>
+              </div>
+            </div>
+            <DialogDescription className="text-cap-gray-lightest font-semibold text-base mt-4">
+              {candidateToDelete && (
+                <>
+                  Estás a punto de eliminar al candidato:
+                  <div className="mt-3 p-4 bg-cap-black rounded-lg border border-cap-gray">
+                    <p className="font-bold text-white text-lg mb-1">{candidateToDelete.fullName}</p>
+                    <p className="text-sm text-cap-gray-lightest mb-2">{candidateToDelete.email}</p>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      <Badge className={`${getStatusColor(candidateToDelete.status)} font-bold border`}>
+                        {candidateToDelete.status}
+                      </Badge>
+                      <Badge className={`${getClassificationColor(candidateToDelete.aiClassification)} text-white font-bold border`}>
+                        {candidateToDelete.aiClassification}
+                      </Badge>
+                      <Badge className="bg-cap-gray text-cap-gray-lightest border border-cap-gray font-bold">
+                        Score: {candidateToDelete.aiScore}
+                      </Badge>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-cap-red font-bold">
+                    ⚠️ Esta acción no se puede deshacer
+                  </p>
+                  <p className="text-sm text-cap-gray-lightest mt-2">
+                    Se eliminarán todos los datos del candidato, incluyendo su CV y evaluaciones.
+                  </p>
+                </>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="mt-6 flex gap-3">
+            <Button
+              variant="outline"
+              onClick={() => setDeleteModalOpen(false)}
+              disabled={isDeleting}
+              className="flex-1 border-2 border-cap-gray text-cap-gray-lightest hover:border-cap-red hover:text-cap-red font-bold transition-all"
+            >
+              <X className="mr-2 h-4 w-4" />
+              Cancelar
+            </Button>
+            <Button
+              onClick={handleDelete}
+              disabled={isDeleting}
+              className="flex-1 bg-cap-red hover:bg-cap-red-dark text-white font-black transition-all hover:scale-105"
+            >
+              {isDeleting ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  Eliminando...
+                </>
+              ) : (
+                <>
+                  <Trash2 className="mr-2 h-4 w-4" />
+                  Sí, Eliminar
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

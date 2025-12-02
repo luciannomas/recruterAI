@@ -6,12 +6,16 @@ import axios from 'axios';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Plus, MapPin, DollarSign, Edit, Trash2, Eye } from 'lucide-react';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { Plus, MapPin, DollarSign, Edit, Trash2, Eye, AlertTriangle, X } from 'lucide-react';
 import { formatCurrency, getStatusColor } from '@/lib/utils';
 
 export default function VacanciesPage() {
   const [vacancies, setVacancies] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [vacancyToDelete, setVacancyToDelete] = useState<any>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     fetchVacancies();
@@ -30,14 +34,25 @@ export default function VacanciesPage() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm('¿Estás seguro de eliminar esta vacante?')) return;
+  const openDeleteModal = (vacancy: any) => {
+    setVacancyToDelete(vacancy);
+    setDeleteModalOpen(true);
+  };
 
+  const handleDelete = async () => {
+    if (!vacancyToDelete) return;
+
+    setIsDeleting(true);
     try {
-      await axios.delete(`/api/vacancies/${id}`);
-      setVacancies(vacancies.filter(v => v._id !== id));
+      await axios.delete(`/api/vacancies/${vacancyToDelete._id}`);
+      setVacancies(vacancies.filter(v => v._id !== vacancyToDelete._id));
+      setDeleteModalOpen(false);
+      setVacancyToDelete(null);
     } catch (error) {
+      console.error('Error al eliminar la vacante:', error);
       alert('Error al eliminar la vacante');
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -137,8 +152,8 @@ export default function VacanciesPage() {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => handleDelete(vacancy._id)}
-                      className="text-red-600 hover:text-red-700"
+                      onClick={() => openDeleteModal(vacancy)}
+                      className="border-2 border-cap-red text-cap-red hover:bg-cap-red hover:text-white font-bold transition-all"
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>
@@ -149,6 +164,73 @@ export default function VacanciesPage() {
           ))}
         </div>
       )}
+
+      {/* Modal de Confirmación de Eliminación */}
+      <Dialog open={deleteModalOpen} onOpenChange={setDeleteModalOpen}>
+        <DialogContent className="bg-cap-gray-dark border-2 border-cap-red text-white max-w-md">
+          <DialogHeader>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-cap-red/20 rounded-full flex items-center justify-center border-2 border-cap-red">
+                  <AlertTriangle className="w-6 h-6 text-cap-red" />
+                </div>
+                <DialogTitle className="text-2xl font-black text-white">
+                  ¿Eliminar Vacante?
+                </DialogTitle>
+              </div>
+            </div>
+            <DialogDescription className="text-cap-gray-lightest font-semibold text-base mt-4">
+              {vacancyToDelete && (
+                <>
+                  Estás a punto de eliminar la vacante:
+                  <div className="mt-3 p-4 bg-cap-black rounded-lg border border-cap-gray">
+                    <p className="font-bold text-white text-lg mb-1">{vacancyToDelete.title}</p>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      <Badge className="bg-cap-gray text-cap-gray-lightest border border-cap-gray font-bold">
+                        {vacancyToDelete.department}
+                      </Badge>
+                      <Badge className={`${getStatusColor(vacancyToDelete.status)} font-bold border`}>
+                        {vacancyToDelete.status === 'published' ? 'Publicada' : vacancyToDelete.status === 'draft' ? 'Borrador' : 'Cerrada'}
+                      </Badge>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-cap-red font-bold">
+                    ⚠️ Esta acción no se puede deshacer
+                  </p>
+                </>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="mt-6 flex gap-3">
+            <Button
+              variant="outline"
+              onClick={() => setDeleteModalOpen(false)}
+              disabled={isDeleting}
+              className="flex-1 border-2 border-cap-gray text-cap-gray-lightest hover:border-cap-red hover:text-cap-red font-bold transition-all"
+            >
+              <X className="mr-2 h-4 w-4" />
+              Cancelar
+            </Button>
+            <Button
+              onClick={handleDelete}
+              disabled={isDeleting}
+              className="flex-1 bg-cap-red hover:bg-cap-red-dark text-white font-black transition-all hover:scale-105"
+            >
+              {isDeleting ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  Eliminando...
+                </>
+              ) : (
+                <>
+                  <Trash2 className="mr-2 h-4 w-4" />
+                  Sí, Eliminar
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
